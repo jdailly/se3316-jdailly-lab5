@@ -1,0 +1,19 @@
+{
+  "name": "workspace",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jdailly/se3316-jdailly-lab5.git"
+  },
+  "author": "Jotham d'Ailly",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jdailly/se3316-jdailly-lab5/issues"
+  },
+  "homepage": "https://github.com/jdailly/se3316-jdailly-lab5#readme"
+}
