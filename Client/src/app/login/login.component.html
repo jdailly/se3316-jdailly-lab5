@@ -14,12 +14,15 @@
 <div *ngIf=ButtonPressed>
   <input type="text" [(ngModel)]="email" placeholder="Please enter an email">
   <input type="password" [(ngModel)]="password" placeholder="Please enter a password">
-  <button (click)="nullCheck();signup(email, password);buttonClickFalse()">
+  <button (click)="nullCheck();signup(email, password);buttonClickFalse();sendUser(email, password)">
     Signup
   </button>
   <button (click)="nullCheck();login(email, password);buttonClickFalse()" [disabled]="!email || !password">
     Login
   </button> 
+  <button (click)="onClick()">
+    SendData
+  </button>
   <div *ngIf = "(authService.NACError)">alert(This account does not exist.)</div>
   <div *ngIf = "(authService.AAError)">alert(Wrong/invalid email/password.)</div>
   <div *ngIf = "(authService.DError)">alert(Your account has been deactivated, please contact the store manager.)</div>

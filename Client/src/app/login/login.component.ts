@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';
+import { UserDataBaseService} from '../user-data-base.service';
 
 @Component({
   selector: 'app-login',
@@ -11,13 +12,17 @@ import { auth } from 'firebase/app';
 export class LoginComponent implements OnInit {
 
   ButtonPressed: boolean=false;
-  
+  response;
   
   email: string;
   password: string;
     
   
-  constructor(public authService: AuthService) {}
+  constructor(private authService: AuthService, private userDataBaseService: UserDataBaseService) {}// public userDataBaseService: UserDataBaseService
+  
+  onResponse(res: string) {
+    this.response = res;
+  }
     
     buttonClickTrue(){
       this.ButtonPressed =true;
@@ -58,6 +63,25 @@ export class LoginComponent implements OnInit {
         alert("Please enter password");
       }
       
+    }
+    
+    
+    onClick(){
+      this.userDataBaseService.getData(this.onResponse.bind(this));
+      console.log(this.response);
+    }
+    
+    sendUser(email: String, password: String){
+      
+      var data={
+        password: String,
+        email: email,
+        manager: false
+      }
+      
+      this.userDataBaseService.addUser(data).subscribe((response)=>{
+      console.log(response);
+    });
     }
 
 

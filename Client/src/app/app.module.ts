@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,6 +12,7 @@ import { environment } from '../environments/environment';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
 import { AuthService } from './auth.service';
+import {UserDataBaseService} from './user-data-base.service';
 
 @NgModule({
   declarations: [
@@ -23,9 +25,11 @@ import { AuthService } from './auth.service';
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule,
   ],
-  providers: [AuthService],
+  providers: [AuthService,
+    UserDataBaseService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
