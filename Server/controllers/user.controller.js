@@ -14,16 +14,14 @@ exports.test = function (req, res) {
 // controllers/users.js
 
 exports.user_create = function (req, res) {
-    
     console.log("post works");
     console.log(req.body.email);
     
     let user = new User(
         {
             email: req.body.email,
-            password: req.body.password
-            //tax: req.body.tax,
-            //quantity: req.body.quantity
+            manager: req.body.manager,
+            active: req.body.active
         }
     );
     
@@ -69,7 +67,9 @@ exports.user_delete = function (req, res) {
 };
 
 exports.user_findall= function (req, res,next) {
-     
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    //next();
     User.find({}, function(err,result) {
         if (err) return next(err);
         

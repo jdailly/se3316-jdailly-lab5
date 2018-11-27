@@ -1,8 +1,9 @@
 {
     "/api/*": {
-        "target": "https://se3316-jdailly-lab4-part2-jdailly.c9users.io:8081",
+        "target": "https://se3316-jdailly-lab5-jdailly.c9users.io:8081",
         "secure": false,
         "changeOrigin": true,
         "logLevel": "info"
     }
+    
 }

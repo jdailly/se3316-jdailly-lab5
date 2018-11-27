@@ -1,17 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductsDataBaseService} from '../products-data-base.service';
-import { Routes, RouterModule } from '@angular/router';
 
-
- //product;
- 
 @Component({
-  selector: 'app-index',
-  templateUrl: './index.component.html',
-  styleUrls: ['./index.component.css']
+  selector: 'app-catalog',
+  templateUrl: './catalog.component.html',
+  styleUrls: ['./catalog.component.css']
 })
-export class IndexComponent implements OnInit {
-
+export class CatalogComponent implements OnInit {
+  
+  show_more: Boolean=false;
+  productID: Number=0;
 
   product;
   
@@ -42,25 +40,23 @@ export class IndexComponent implements OnInit {
     console.log(replace);
     
   }
+  
+  
+  
+  showMore(){
+    this.show_more=true;
+  }
+  
+  closeMore(){
+    this.show_more=false;
+  }
+  
+  setProductID(id: Number){
+    console.log(this.id);
+  }
+  
 
   
-  // onClick(){
-  //     this.prodcutsDataBaseService.getData(this.onResponse.bind(this));
-  //     console.log(this.response1);
-  //   }
-    
-    // sendUser(email: String, password: String){
-      
-    //   var data={
-    //     password: String,
-    //     email: email,
-    //     manager: false
-    //   }
-      
-    //   this.userDataBaseService.addUser(data).subscribe((response)=>{
-    //   console.log(response);
-    // });
-    // }
 
   ngOnInit() {
     
@@ -69,5 +65,6 @@ export class IndexComponent implements OnInit {
      
   
   }
+
 
 }

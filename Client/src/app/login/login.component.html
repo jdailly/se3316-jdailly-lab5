@@ -1,6 +1,6 @@
 
 <div *ngIf="(authService.user | async) && ((authService.user | async)?.emailVerified)" class="login" style="text-align:left">
-    You are signed in as: {{(authService.user | async)?.email}}
+    <font color="white"> You are signed in as: {{(authService.user | async)?.email}}</font>
 </div>
 
 <div *ngIf="(authService.user | async) ">
@@ -14,22 +14,19 @@
 <div *ngIf=ButtonPressed>
   <input type="text" [(ngModel)]="email" placeholder="Please enter an email">
   <input type="password" [(ngModel)]="password" placeholder="Please enter a password">
-  <button (click)="nullCheck();signup(email, password);buttonClickFalse();sendUser(email, password)">
+  <button (click)="nullCheck();signup(email, password);buttonClickFalse();">
     Signup
   </button>
   <button (click)="nullCheck();login(email, password);buttonClickFalse()" [disabled]="!email || !password">
     Login
   </button> 
-  <button (click)="onClick()">
-    SendData
-  </button>
   <div *ngIf = "(authService.NACError)">alert(This account does not exist.)</div>
   <div *ngIf = "(authService.AAError)">alert(Wrong/invalid email/password.)</div>
   <div *ngIf = "(authService.DError)">alert(Your account has been deactivated, please contact the store manager.)</div>
 </div>
 
 <div *ngIf="(authService.user | async) && !((authService.user | async)?.emailVerified)">
-  <h4>Please Verify your email! You many need to refresh the page</h4>
+  <h4> Please Verify your email! You many need to refresh the page</h4>
   <button (click)="resend()">
   Resend Verification
   </button>

@@ -36,6 +36,7 @@ export class LoginComponent implements OnInit {
     
     signup(email: String, password: String) {
        this.authService.signup(this.email, this.password);
+       this.sendUser(this.email);
        this.email = this.password = '';
      }
   
@@ -54,12 +55,12 @@ export class LoginComponent implements OnInit {
     }
     
     nullCheck(email: String, password: String){
-      
-      if(email == null){
+      console.log();
+      if(this.email == undefined){
         alert("Please enter email");
       }
       
-      else if(password==null){
+      else if(this.password==undefined){
         alert("Please enter password");
       }
       
@@ -71,12 +72,12 @@ export class LoginComponent implements OnInit {
       console.log(this.response);
     }
     
-    sendUser(email: String, password: String){
-      
+    sendUser(email: String){
+     console.log(email);
       var data={
-        password: String,
         email: email,
-        manager: false
+        manager:false,
+        active: true
       }
       
       this.userDataBaseService.addUser(data).subscribe((response)=>{

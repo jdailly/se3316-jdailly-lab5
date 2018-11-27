@@ -23,7 +23,11 @@ exports.product_create = function (req, res) {
             name: encodeHTML(req.body.name),
             price: req.body.price,
             tax: req.body.tax,
-            quantity: req.body.quantity
+            quantity: req.body.quantity,
+            des: req.body.des,
+            purchased: req.body.purchased,
+            rating: req.body.rating
+            
         }
     );
     
@@ -55,11 +59,20 @@ function encodeHTML(s) {
 
 exports.product_update = function (req, res) {
     
-    Product.findByIdAndUpdate(req.params.id, {$set: req.body}, function (err, product,next) {
+    Product.findByIdAndUpdate(req.params.id,{$set: req.body}, function (err, product,next) {
         if (err) return next(err);
-        res.send('Product udpated.');
+        res.send(product);
     });
 };
+
+exports.product_update_rating = function (req, res) {
+    
+    Product.findByIdAndUpdate(req.params.id,{$push:{rating: req.body.rating}}, {$set: req.body}, function (err, product,next) {
+        if (err) return next(err);
+        res.send(product);
+    });
+};
+
 
 exports.product_delete = function (req, res) {
     Product.findByIdAndRemove(req.params.id, function (err, next) {
@@ -69,7 +82,10 @@ exports.product_delete = function (req, res) {
 };
 
 exports.product_findall= function (req, res,next) {
-     
+    console.log("WOKR");
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    
     Product.find({}, function(err,result) {
         if (err) return next(err);
         

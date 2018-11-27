@@ -3,19 +3,18 @@ import { HttpClient } from '@angular/common/http';
 
 const base ='https://se3316-jdailly-lab5-jdailly.c9users.io:8081/api';
 
-
 @Injectable({
   providedIn: 'root'
 })
 
 
-export class UserDataBaseService {
+export class ProductsDataBaseService {
 
   constructor(private http: HttpClient) { }
   
   getData(callback_fun) {
     console.log('getData');
-      this.http.get(base + '/product/').subscribe(data => {
+      this.http.get(base + '/product').subscribe(data => {
           console.log("gettingdata");
           console.log("data");
           callback_fun(data);
@@ -25,9 +24,8 @@ export class UserDataBaseService {
   
   addUser(data){
     
-     return this.http.post('api/user/create', data);
+     return this.http.post(base +'/product/create', data);
    }
  
  
-  
 }

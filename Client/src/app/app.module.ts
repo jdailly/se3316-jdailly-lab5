@@ -12,13 +12,20 @@ import { environment } from '../environments/environment';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
 import { AuthService } from './auth.service';
+
+
 import {UserDataBaseService} from './user-data-base.service';
+import{  ProductsDataBaseService} from './products-data-base.service';
+import { CatalogComponent } from './catalog/catalog.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     IndexComponent,
-    LoginComponent
+    LoginComponent,
+    CatalogComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
