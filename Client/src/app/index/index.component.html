@@ -5,14 +5,44 @@
     we sell shoes. 
 </div>
 <!--<button routerLink="catalog" routerLinkActive="active">Catalog</button>-->
-<div>
-    <div *ngFor="let product of product | slice:0:5; let i=index">
-        <div>---------------------------</div>
-        <h4>Name: {{product.name}}</h4>
-        <div>Quantity: {{product.quantity}}</div>
-        <div>Price:{{product.price}}</div>
-        <div>Purchased: {{product.purchased}}</div>
-        <div>----------------------------</div>
-    </div>
+<!--<div>-->
+<!--    <div *ngFor="let product of product | slice:0:5; let i=index">-->
+<!--        <div>---------------------------</div>-->
+<!--        <h4>Name: {{product.name}}</h4>-->
+<!--        <div>Quantity: {{product.quantity}}</div>-->
+<!--        <div>Price:{{product.price}}</div>-->
+<!--        <div>Purchased: {{product.purchased}}</div>-->
+<!--        <div>----------------------------</div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<h3>Our most purchased shoes</h3>
+<div *ngFor="let product of product | slice:0:5; let i=index">
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+            <img src="{{product.url}}">
+              {{product.name}}
+            </mat-panel-title>
+            <mat-panel-description>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div>
+            <button class={{product._id}} (click)="add();">+</button><button class={{product._id}} (click)="minus();">-</button>
+          </div> 
+          <div>Quantity: {{product.quantity}}</div>
+            <div>Price:{{product.price}}</div>
+            <div>Purchased: {{product.purchased}}</div>
+            <div>Description: {{product.des}}</div>
+            <ng-container *ngFor="let comment of comment">
+              <div *ngIf="product._id == comment.productID">
+                <div>------------------------------------</div>
+                <div>User: {{comment.user}}</div>
+                <div>{{comment.comment}}</div>
+                <div>Rating: {{comment.rating}}</div>
+              </div>
+            </ng-container>
+        </mat-expansion-panel>
+        <br>
 </div>
 <router-outlet></router-outlet>

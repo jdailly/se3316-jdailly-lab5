@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductsDataBaseService} from '../products-data-base.service';
 import { Routes, RouterModule } from '@angular/router';
+import { CommentsDataBaseService} from '../comments-data-base.service';
 
 
  //product;
@@ -14,12 +15,18 @@ export class IndexComponent implements OnInit {
 
 
   product;
+  comment;
   
-  constructor(private prodcutsDataBaseService: ProductsDataBaseService) { }
+  constructor(private prodcutsDataBaseService: ProductsDataBaseService, 
+  private commentsDataBaseService: CommentsDataBaseService) { }
   
   onResponse(res: string) {
     this.product = res;
     this.sort();
+  }
+  
+  onResponseComments(res: string) {
+    this.comment = res;
   }
   
   
@@ -42,6 +49,33 @@ export class IndexComponent implements OnInit {
     console.log(replace);
     
   }
+  
+  average(){
+    console.log('YAY');
+    }
+    
+    
+    
+  add(){
+    console.log("add");
+  }
+  
+  minus(){
+    console.log("minus");
+  }
+  
+//   idAttr: String;
+  
+// getID(event){
+//   console.log("help");
+//   console.log(event);
+//   var target = event.target || event.srcElement || event.currentTarget ;
+//   this.idAttr = target.attributes.id;
+//   console.log(this.idAttr);
+// }
+
+
+
 
   
   // onClick(){
@@ -66,7 +100,7 @@ export class IndexComponent implements OnInit {
     
     
      this.prodcutsDataBaseService.getData(this.onResponse.bind(this));
-     
+     this.commentsDataBaseService.getData(this.onResponseComments.bind(this));
   
   }
 

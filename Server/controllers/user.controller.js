@@ -15,7 +15,7 @@ exports.test = function (req, res) {
 
 exports.user_create = function (req, res) {
     console.log("post works");
-    console.log(req.body.email);
+    //console.log(req.body.email);
     
     let user = new User(
         {

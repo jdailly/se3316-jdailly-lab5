@@ -7,7 +7,8 @@ const bodyParser = require('body-parser');
 
 // Get our API routes
 const apiProduct = require('./routes/product.route');
-const apiUser= require('./routes/user.route')
+const apiUser= require('./routes/user.route');
+const apiComments= require('./routes/comments.route');
 
 
 
@@ -33,6 +34,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // Set our api routes
 app.use('/api/product', apiProduct);
 app.use('/api/user', apiUser);
+app.use('/api/comments', apiComments);
+
 
 
 // Catch all other routes and return the index file

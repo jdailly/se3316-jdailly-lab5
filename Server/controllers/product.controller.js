@@ -26,7 +26,9 @@ exports.product_create = function (req, res) {
             quantity: req.body.quantity,
             des: req.body.des,
             purchased: req.body.purchased,
-            rating: req.body.rating
+            //rating: req.body.rating,
+            //comments: req.body.comments,
+            url: req.body.url
             
         }
     );
@@ -72,6 +74,15 @@ exports.product_update_rating = function (req, res) {
         res.send(product);
     });
 };
+
+exports.product_update_comment = function (req, res) {
+    
+    Product.findByIdAndUpdate(req.params.id,{$push:{comment: req.body.comment}}, {$set: req.body}, function (err, product,next) {
+        if (err) return next(err);
+        res.send(product);
+    });
+};
+
 
 
 exports.product_delete = function (req, res) {

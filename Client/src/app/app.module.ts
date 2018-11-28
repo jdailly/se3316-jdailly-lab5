@@ -18,6 +18,10 @@ import {UserDataBaseService} from './user-data-base.service';
 import{  ProductsDataBaseService} from './products-data-base.service';
 import { CatalogComponent } from './catalog/catalog.component';
 import { HeaderComponent } from './header/header.component';
+import {CommentsDataBaseService} from './comments-data-base.service';
+import {MatExpansionModule} from '@angular/material/expansion';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +29,8 @@ import { HeaderComponent } from './header/header.component';
     IndexComponent,
     LoginComponent,
     CatalogComponent,
-    HeaderComponent
+    HeaderComponent,
+    ShoppingCartComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,6 +39,8 @@ import { HeaderComponent } from './header/header.component';
     AngularFireAuthModule,
     FormsModule,
     HttpClientModule,
+    MatExpansionModule,
+    BrowserAnimationsModule
   ],
   providers: [AuthService,
     UserDataBaseService],

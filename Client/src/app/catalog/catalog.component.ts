@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductsDataBaseService} from '../products-data-base.service';
+import { CommentsDataBaseService} from '../comments-data-base.service';
 
 @Component({
   selector: 'app-catalog',
@@ -10,14 +11,19 @@ export class CatalogComponent implements OnInit {
   
   show_more: Boolean=false;
   productID: Number=0;
-
+  //TODO: set up comments update for array, get comment by ID 
   product;
+  comments;
   
-  constructor(private prodcutsDataBaseService: ProductsDataBaseService) { }
+  constructor(private prodcutsDataBaseService: ProductsDataBaseService, private commentsDataBaseService: CommentsDataBaseService) { }
   
-  onResponse(res: string) {
+  onResponseProducts(res: string) {
     this.product = res;
     this.sort();
+  }
+  
+  onResponseComments(res: string){
+    this.comments=res;
   }
   
   
@@ -51,8 +57,8 @@ export class CatalogComponent implements OnInit {
     this.show_more=false;
   }
   
-  setProductID(id: Number){
-    console.log(this.id);
+  setProductID(id: String){
+    console.log(id);
   }
   
 
@@ -61,8 +67,8 @@ export class CatalogComponent implements OnInit {
   ngOnInit() {
     
     
-     this.prodcutsDataBaseService.getData(this.onResponse.bind(this));
-     
+     this.prodcutsDataBaseService.getData(this.onResponseProducts.bind(this));
+     this.commentsDataBaseService.getData(this.onResponseComments.bind(this));
   
   }
 
