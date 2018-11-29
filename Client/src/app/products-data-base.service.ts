@@ -22,10 +22,14 @@ export class ProductsDataBaseService {
       });
   }
   
-  addUser(data){
+  updateData(id: String,data){
+    console.log('In the update');
+    console.log('/api/product/'+id+'/update')
+    console.log(data);
+    return this.http.put('/api/product/'+id+'/update', data);
+    console.log("why dosnt this work?");
     
-     return this.http.post(base +'/product/create', data);
-   }
+  }
  
  
 }

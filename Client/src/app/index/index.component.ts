@@ -2,6 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { ProductsDataBaseService} from '../products-data-base.service';
 import { Routes, RouterModule } from '@angular/router';
 import { CommentsDataBaseService} from '../comments-data-base.service';
+import {CartDataBaseService} from '../cart-data-base.service';
+import { AuthService } from '../auth.service';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { auth } from 'firebase/app';
+import { UserDataBaseService} from '../user-data-base.service';
+
+import {firebase} from '@firebase/app';
 
 
  //product;
@@ -16,9 +23,12 @@ export class IndexComponent implements OnInit {
 
   product;
   comment;
+  cart;
   
   constructor(private prodcutsDataBaseService: ProductsDataBaseService, 
-  private commentsDataBaseService: CommentsDataBaseService) { }
+  private commentsDataBaseService: CommentsDataBaseService,
+  private cartDataBaseService: CartDataBaseService,
+  private authService: AuthService) { }
   
   onResponse(res: string) {
     this.product = res;
@@ -27,6 +37,10 @@ export class IndexComponent implements OnInit {
   
   onResponseComments(res: string) {
     this.comment = res;
+  }
+  
+   onResponseCart(res: string) {
+    this.cart = res;
   }
   
   
@@ -50,57 +64,141 @@ export class IndexComponent implements OnInit {
     
   }
   
-  average(){
-    console.log('YAY');
+  getID(event)
+  {
+    var target = event.target || event.srcElement || event.currentTarget;
+    var idAttr = target.attributes.class.value;
+    return idAttr;
+    
+  }
+    
+    //TODO: ADD A CHECK TO SHOPPING CART QUANTITY
+  add(event){
+    var cartCheck=false;
+    var idAttr = this.getID(event);
+    
+    for(var i=0; i < this.product.length; i++){
+      if(this.product[i]._id == idAttr){
+        
+        for(var j=0; j < this.cart.length; j++){
+          
+          if(this.cart[j].item ==this.product[i].name){
+            
+            cartCheck=true;
+            
+            var quanItem = (this.cart[j].quantity)+1;
+            
+            var cartUpdateData={
+              quantity: quanItem
+            }
+            
+            var cartID=this.cart[j]._id;
+            console.log(this.cart[j]._id);
+            this.cartDataBaseService.updateItem(cartID,cartUpdateData).subscribe(data => {
+            console.log(data);
+            });
+          }
+        }
+        
+
+        var quan =(this.product[i].quantity)-1;
+  
+        var data={
+          quantity: quan
+        }
+        
+        this.prodcutsDataBaseService.updateData(idAttr,data).subscribe(data => {
+          console.log(data);
+        });
+        
+        if (cartCheck==false){ 
+          var cartData={
+            userid: firebase.auth().currentUser.email,
+            item: this.product[i].name,
+            quantity: 1
+          }
+          this.cartDataBaseService.createItem(cartData).subscribe(data=>{
+          console.log(data);
+          });
+        }
+        
+      }
     }
     
-    
-    
-  add(){
-    console.log("add");
   }
   
+  //TODO: ADD A CHECK TO SHOPPING CART QUANTITY
   minus(){
     console.log("minus");
+    var cartCheck=false;
+    var idAttr = this.getID(event);
+    
+    for(var i=0; i < this.product.length; i++){
+      if(this.product[i]._id == idAttr){
+        
+        for(var j=0; j < this.cart.length; j++){
+          
+          if(this.cart[j].item ==this.product[i].name){
+            
+            cartCheck=true;
+            
+            var quanItem = (this.cart[j].quantity)-1;
+            
+            if(this.cart[j].quantity<=1){
+              console.log('deleting Item');
+              var deleteId= this.cart[j]._id;
+              console.log(deleteId);
+              this.cartDataBaseService.deleteItem(deleteId).subscribe(data =>{
+                console.log(data);
+              });
+            }
+            
+            var cartUpdateData={
+              quantity: quanItem
+            }
+            
+            var cartID=this.cart[j]._id;
+            console.log(this.cart[j]._id);
+            this.cartDataBaseService.updateItem(cartID,cartUpdateData).subscribe(data => {
+            console.log(data);
+            });
+          }
+        }
+        
+
+        var quan =(this.product[i].quantity)+1;
+  
+        var data={
+          quantity: quan
+        }
+        
+        this.prodcutsDataBaseService.updateData(idAttr,data).subscribe(data => {
+          console.log(data);
+        });
+        
+        if (cartCheck==false){ 
+          var cartData={
+            userid: firebase.auth().currentUser.email,
+            item: this.product[i].name,
+            quantity: 1
+          }
+          this.cartDataBaseService.createItem(cartData).subscribe(data=>{
+          console.log(data);
+          });
+        }
+        
+      }
+    }
+   
   }
   
-//   idAttr: String;
-  
-// getID(event){
-//   console.log("help");
-//   console.log(event);
-//   var target = event.target || event.srcElement || event.currentTarget ;
-//   this.idAttr = target.attributes.id;
-//   console.log(this.idAttr);
-// }
-
-
-
-
-  
-  // onClick(){
-  //     this.prodcutsDataBaseService.getData(this.onResponse.bind(this));
-  //     console.log(this.response1);
-  //   }
-    
-    // sendUser(email: String, password: String){
-      
-    //   var data={
-    //     password: String,
-    //     email: email,
-    //     manager: false
-    //   }
-      
-    //   this.userDataBaseService.addUser(data).subscribe((response)=>{
-    //   console.log(response);
-    // });
-    // }
 
   ngOnInit() {
     
     
      this.prodcutsDataBaseService.getData(this.onResponse.bind(this));
      this.commentsDataBaseService.getData(this.onResponseComments.bind(this));
+     this.cartDataBaseService.getData(this.onResponseCart.bind(this));
   
   }
 

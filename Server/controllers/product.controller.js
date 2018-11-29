@@ -60,7 +60,8 @@ function encodeHTML(s) {
 }
 
 exports.product_update = function (req, res) {
-    
+    console.log(req);
+    console.log("yippie");
     Product.findByIdAndUpdate(req.params.id,{$set: req.body}, function (err, product,next) {
         if (err) return next(err);
         res.send(product);

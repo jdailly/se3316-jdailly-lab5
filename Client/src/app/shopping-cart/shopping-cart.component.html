@@ -1,3 +1,23 @@
-<p>
-  shopping-cart works!
-</p>
+
+<div *ngIf="(authService.user | async) && ((authService.user | async)?.emailVerified)" >
+    <h1 style= "text-align:center">Your Cart</h1>
+    
+ <button>Clear</button>
+ <button>Buy</button>
+    <div *ngFor="let cart of cart">
+        <ng-container *ngIf="(authService.user | async)?.email==cart.userid">
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{cart.item}}
+                </mat-panel-title>
+                <mat-panel-description>
+                    Quantity: {{cart.quantity}}
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div>help</div>
+            </mat-expansion-panel>
+            <br>
+        </ng-container>
+    </div>
+</div>

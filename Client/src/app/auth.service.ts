@@ -34,7 +34,7 @@ export class AuthService {
       .then(value => {
         console.log('Success!', value);
         firebase.auth().currentUser.sendEmailVerification().then(function(){
-        console.log("Check your email");
+       alert("check your email");
         this.NACError = false;
         }).catch(function(error){
           
