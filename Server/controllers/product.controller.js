@@ -98,7 +98,7 @@ exports.product_findall= function (req, res,next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     
-    Product.find({}, function(err,result) {
+    Product.find({quantity: {$gt: 0}}, function(err,result) {
         if (err) return next(err);
         
         res.send(result);

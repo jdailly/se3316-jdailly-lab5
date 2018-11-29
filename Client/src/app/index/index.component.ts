@@ -44,6 +44,28 @@ export class IndexComponent implements OnInit {
   }
   
   
+  submit(selected:Number, comment:String, event){
+    console.log(comment);
+    console.log(selected);
+    console.log(event);
+    var idProduct = this.getID(event);
+    var userEmail= auth().currentUser.email
+    console.log(idProduct);
+    console.log(userEmail);
+    var data ={
+      productID: idProduct,
+      user: userEmail,
+      comment: comment,
+      rating: selected
+    }
+    
+    this.commentsDataBaseService.commentCreate(data).subscribe(data => {
+          console.log(data);
+    });
+    
+  }
+  
+  
 
   
   sort(){
@@ -113,7 +135,7 @@ export class IndexComponent implements OnInit {
         
         if (cartCheck==false){ 
           var cartData={
-            userid: firebase.auth().currentUser.email,
+            userid: auth().currentUser.email,
             item: this.product[i].name,
             quantity: 1
           }
@@ -178,7 +200,7 @@ export class IndexComponent implements OnInit {
         
         if (cartCheck==false){ 
           var cartData={
-            userid: firebase.auth().currentUser.email,
+            userid: auth().currentUser.email,
             item: this.product[i].name,
             quantity: 1
           }

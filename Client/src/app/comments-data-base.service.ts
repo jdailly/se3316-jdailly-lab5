@@ -19,4 +19,11 @@ export class CommentsDataBaseService {
           
       });
   }
+  
+  commentCreate(data){
+    console.log("posting comment");
+    
+    return this.http.post('/api/comments/create',data);
+    
+  }
 }

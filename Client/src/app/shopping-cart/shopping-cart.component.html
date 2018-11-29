@@ -2,8 +2,8 @@
 <div *ngIf="(authService.user | async) && ((authService.user | async)?.emailVerified)" >
     <h1 style= "text-align:center">Your Cart</h1>
     
- <button>Clear</button>
- <button>Buy</button>
+ <button (click)="clearCart();">Clear</button>
+ <button (click)="deleteCart();">Buy</button>
     <div *ngFor="let cart of cart">
         <ng-container *ngIf="(authService.user | async)?.email==cart.userid">
             <mat-expansion-panel>

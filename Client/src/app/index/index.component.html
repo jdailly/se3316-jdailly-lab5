@@ -43,7 +43,25 @@
                 <div>{{comment.comment}}</div>
                 <div>Rating: {{comment.rating}}</div>
               </div>
+              
             </ng-container>
+            <div>----------------------------------------</div>
+            <div *ngIf="(authService.user | async) && ((authService.user | async)?.emailVerified)">
+                   <input matInput [(ngModel)]="password" placeholder="comment">
+                  
+                <div>
+                    <mat-form-field>
+                    <mat-select [(ngModel)]="selected">
+                    <mat-option value="1"> 1 Star</mat-option>
+                    <mat-option value="2">2 Star</mat-option>
+                    <mat-option value="3">3 Star</mat-option>
+                    <mat-option value="4">4 Star</mat-option>
+                    <mat-option value="5">5 Star</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <button  class={{product._id}} (click)="submit(selected,password, $event);" >Submit</button>
+            </div>
         </mat-expansion-panel>
         <br>
 </div>

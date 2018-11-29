@@ -22,7 +22,8 @@ exports.cart_create = function (req, res) {
         {
             userid: req.body.userid,
             item: req.body.item,
-            quantity: req.body.quantity
+            quantity: req.body.quantity,
+            price: req.body.price
             
         }
     );

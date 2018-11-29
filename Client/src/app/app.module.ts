@@ -23,6 +23,11 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import {CartDataBaseService} from './cart-data-base.service';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material';
+import {MatSelectModule} from '@angular/material/select';
+
+
 
 @NgModule({
   declarations: [
@@ -41,7 +46,10 @@ import {CartDataBaseService} from './cart-data-base.service';
     FormsModule,
     HttpClientModule,
     MatExpansionModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule
   ],
   providers: [AuthService,
     UserDataBaseService],
