@@ -11,9 +11,15 @@
     <div class="navbar-nav">
       <a class="nav-item nav-link active" href="#">Home</a>
       <a class="nav-item nav-link" href="/catalog">Catalog</a>
-      <div *ngIf="(authService.user | async) && ((authService.user | async)?.emailVerified)">
+      <a *ngIf="(authService.user | async) && ((authService.user | async)?.emailVerified)">
         <a class="nav-item nav-link" href="/shopping">Shopping Cart</a>
-      </div>
+      </a>
+      <a *ngIf="(authService.user | async) && ((authService.user | async)?.emailVerified)">
+        <a class="nav-item nav-link" href="/userWishList">Your Wish List</a>
+      </a>
+      <a *ngIf="(authService.user | async) && ((authService.user | async)?.emailVerified)">
+        <a class="nav-item nav-link" href="/allWishList">All Wish Lists</a>
+      </a>
     </div>
   </div>
   <div class="navbar-expand ml-auto navbar-nav">

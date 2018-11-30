@@ -26,7 +26,10 @@ import {CartDataBaseService} from './cart-data-base.service';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material';
 import {MatSelectModule} from '@angular/material/select';
-
+import {WishListDataBaseService} from './wish-list-data-base.service';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import { UsersWishListComponent } from './users-wish-list/users-wish-list.component';
+import { AllWishListComponent } from './all-wish-list/all-wish-list.component';
 
 
 @NgModule({
@@ -37,6 +40,8 @@ import {MatSelectModule} from '@angular/material/select';
     CatalogComponent,
     HeaderComponent,
     ShoppingCartComponent,
+    UsersWishListComponent,
+    AllWishListComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,7 +54,8 @@ import {MatSelectModule} from '@angular/material/select';
     BrowserAnimationsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    MatCheckboxModule
   ],
   providers: [AuthService,
     UserDataBaseService],

@@ -1,0 +1,41 @@
+ <h1 style= "text-align:center">Your Wish List</h1>
+ <div *ngFor="let user of user">
+    <div *ngIf="(authService.user | async)?.email == user.email">
+        <div>Change Wish List Name</div>
+        <input type="text" [(ngModel)]="name" placeholder="name">
+        <button (click)="ChangeName($event,name)" class={{user._id}} >Change</button>
+        <div>Change Wish List Description</div>
+        <input type="text" [(ngModel)]="des" placeholder="Change Description">
+        <button (click)="ChangeDes($event,des)"  class={{user._id}} >Change</button>
+     </div>
+</div>
+
+ 
+ <div *ngFor="let wish of wish">
+     
+     <ng-container *ngIf="wish.email == (authService.user | async)?.email">
+         
+         <div *ngFor="let user of user">
+             <div *ngIf="(authService.user | async)?.email == user.email">
+                <h4>{{user.collName}}</h4>
+                <div>{{user.collDes}}</div>
+             </div>
+         </div>
+         <mat-accordion>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <div>Name: {{wish.item}}</div>
+            </mat-expansion-panel-header>
+            <div>Quantity: {{wish.quantity}}</div>
+            <input type="Number" [(ngModel)]="quan" placeholder="#">
+            <button (click)="Changequan($event,quan)" class={{wish._id}} >Change</button>
+            <div>Description:{{wish.des}}</div>
+            <button (click)="Delete($event)" class={{wish._id}}>Delete</button>
+            
+          </mat-expansion-panel>
+        </mat-accordion>
+    </ng-container>
+</div>
+
+
+

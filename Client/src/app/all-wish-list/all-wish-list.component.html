@@ -1,0 +1,21 @@
+<h1 style= "text-align:center">Wish Lists</h1>
+
+ <div *ngFor="let user of user">
+     <div *ngIf="user.access==true">
+         <h4>{{user.collName}}</h4>
+         <div>{{user.collDes}}</div>
+         <div *ngFor="let wish of wish">
+             <ng-container *ngIf="(user.email==wish.email)">
+                 <mat-accordion>
+                  <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <div>Name: {{wish.item}}</div>
+                    </mat-expansion-panel-header>
+                    <div>Quantity: {{wish.quantity}}</div>
+                    <div>Description:{{wish.des}}</div>
+                  </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+        </div>
+    </div>
+</div>

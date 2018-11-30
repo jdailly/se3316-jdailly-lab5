@@ -14,13 +14,17 @@ export class UserDataBaseService {
   constructor(private http: HttpClient) { }
   
   getData(callback_fun) {
-    console.log('getData');
-      this.http.get(base + '/product/').subscribe(data => {
+    console.log('getDataUser');
+      this.http.get(base + '/user/').subscribe(data => {
           console.log("gettingdata");
           console.log("data");
           callback_fun(data);
           
       });
+  }
+  
+  updateAccess(id,data){
+    return this.http.put('/api/user/'+id+'/update',data);
   }
   
   addUser(data){

@@ -27,9 +27,30 @@
             <mat-panel-description>
             </mat-panel-description>
           </mat-expansion-panel-header>
+          <div *ngFor="let user of user">
+                <div *ngIf="((authService.user | async)?.email==user.email)&&(user.access==true)">
+                  <div style="text-align:center">
+                    Would you like to make your Wish List Private?
+                    <button class={{user._id}} (click)="yesPrivate($event);">Yes</button>
+                  </div>
+                </div>
+              </div>
+              <div *ngFor="let user of user">
+                <div *ngIf="((authService.user | async)?.email==user.email)&&(user.access==false)">
+                  <div style="text-align:center">
+                    Would you like to make your Wish List Public?
+                    <button class={{user._id}} (click)="yesPublic($event);">Yes</button>
+                  </div>
+                </div>
+              </div>
           <div *ngIf="(authService.user | async) && ((authService.user | async)?.emailVerified)">
             <div>Add to Cart:
-              <button class={{product._id}} (click)="add($event);">+</button><button class={{product._id}} (click)="minus($event);">-</button>
+            <br>
+            <div>Size:<input type="Number" min=5 max=13 value=10 /></div>
+            <div>Amount:<input type="Number" value=1 min=0 max=10  [(ngModel)]="amount"/></div>
+            <button class={{product._id}} (click)="add($event,amount);">Add To Cart </button>
+            <button class={{product._id}} (click)="addWish($event,amount);">Add To Wish List </button>
+              <!--<button class={{product._id}} (click)="add($event);">+</button><button class={{product._id}} (click)="minus($event);">-</button>-->
             </div> 
           </div>
           <div>Quantity: {{product.quantity}}</div>
@@ -61,6 +82,7 @@
                 </mat-form-field>
               </div>
               <button  class={{product._id}} (click)="submit(selected,password, $event);" >Submit</button>
+              
             </div>
         </mat-expansion-panel>
         <br>

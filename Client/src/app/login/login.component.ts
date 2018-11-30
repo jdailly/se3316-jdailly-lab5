@@ -77,7 +77,8 @@ export class LoginComponent implements OnInit {
       var data={
         email: email,
         manager:false,
-        active: true
+        active: true,
+        access: false
       }
       
       this.userDataBaseService.addUser(data).subscribe((response)=>{

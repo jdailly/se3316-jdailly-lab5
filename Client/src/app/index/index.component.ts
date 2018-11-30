@@ -7,6 +7,7 @@ import { AuthService } from '../auth.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';
 import { UserDataBaseService} from '../user-data-base.service';
+import {WishListDataBaseService} from '../wish-list-data-base.service';
 
 import {firebase} from '@firebase/app';
 
@@ -24,11 +25,15 @@ export class IndexComponent implements OnInit {
   product;
   comment;
   cart;
+  wishList;
+  user;
   
   constructor(private prodcutsDataBaseService: ProductsDataBaseService, 
   private commentsDataBaseService: CommentsDataBaseService,
   private cartDataBaseService: CartDataBaseService,
-  private authService: AuthService) { }
+  private authService: AuthService,
+  private wishListService: WishListDataBaseService,
+  private userDataBaseService: UserDataBaseService) { }
   
   onResponse(res: string) {
     this.product = res;
@@ -43,6 +48,97 @@ export class IndexComponent implements OnInit {
     this.cart = res;
   }
   
+  onResponseWish(res: string) {
+    this.wishList = res;
+    
+  }
+  onResponseUser(res: string) {
+    this.user = res;
+    
+  }
+  
+  
+  checkBox(){
+    console.log("checkBox");
+}
+  
+  
+  addWish(event, amount: Number){
+    var wishID=this.getID(event);
+    var wishDes;
+    var wishName;
+    var existUser=false;
+    
+    
+    //Getting the item description
+    for(var i = 0; i < this.product.length; i++){
+      if(this.product[i]._id==wishID){
+        console.log("im in");
+        wishDes=this.product[i].des;
+        wishName=this.product[i].name;
+        break;
+      }
+    }
+    
+    
+    //check if user already has a wish list
+    // for (var i=0; i<this.wishList.length;i++){
+    //   if(this.wishList[i].email == auth().currentUser.email){
+    //     console.log("existUser");
+    //     existUser=true;
+    //     var wishListId=this.wishList[i]._id;
+    //     var itemData={
+    //       item: wishName
+    //       // quantity: amount,
+    //       // des: wishDes
+    //     }
+    //     var quanData={
+    //       quantity: amount
+    //     }
+    //     var desData={
+    //       des: wishDes
+    //     }
+        
+        
+    //     this.wishListService.updateItem(wishListId,itemData).subscribe(data => {
+    //       console.log(data);
+    //     });
+        
+    //     console.log("wait");
+        
+    //     this.wishListService.updateQuan(wishListId,quanData).subscribe(data => {
+    //       console.log(data);
+    //     });
+    //     console.log("wait");
+    //     this.wishListService.updateDes(wishListId,desData).subscribe(data => {
+    //       console.log(data);
+    //     });
+    //     console.log("wait");
+    //   }
+    // }
+    
+    if(existUser == false){
+      
+      var wishEmail=auth().currentUser.email;
+      console.log(wishName);
+      var wishData ={
+        email: wishEmail,
+        item: wishName,
+        quantity: amount,
+        des: wishDes,
+        access: true
+        
+      }
+      
+      
+      this.wishListService.addWish(wishData).subscribe(data =>{
+        console.log(data);
+      })
+    }
+    
+    
+    
+  }
   
   submit(selected:Number, comment:String, event){
     console.log(comment);
@@ -95,7 +191,10 @@ export class IndexComponent implements OnInit {
   }
     
     //TODO: ADD A CHECK TO SHOPPING CART QUANTITY
-  add(event){
+  add(event, amount: Number){
+    console.log(amount);
+    var num = parseInt(amount,10);
+    console.log(num);
     var cartCheck=false;
     var idAttr = this.getID(event);
     
@@ -108,7 +207,7 @@ export class IndexComponent implements OnInit {
             
             cartCheck=true;
             
-            var quanItem = (this.cart[j].quantity)+1;
+            var quanItem = (this.cart[j].quantity)+amount;
             
             var cartUpdateData={
               quantity: quanItem
@@ -123,7 +222,7 @@ export class IndexComponent implements OnInit {
         }
         
 
-        var quan =(this.product[i].quantity)-1;
+        var quan = (this.product[i].quantity)-num;
   
         var data={
           quantity: quan
@@ -137,7 +236,7 @@ export class IndexComponent implements OnInit {
           var cartData={
             userid: auth().currentUser.email,
             item: this.product[i].name,
-            quantity: 1
+            quantity: amount
           }
           this.cartDataBaseService.createItem(cartData).subscribe(data=>{
           console.log(data);
@@ -148,6 +247,8 @@ export class IndexComponent implements OnInit {
     }
     
   }
+  
+
   
   //TODO: ADD A CHECK TO SHOPPING CART QUANTITY
   minus(){
@@ -214,6 +315,34 @@ export class IndexComponent implements OnInit {
    
   }
   
+  yesPrivate(event){
+    var iduser=this.getID(event);
+    console.log(iduser);
+    
+    var data={
+      access:false
+    }
+    
+    this.userDataBaseService.updateAccess(iduser,data).subscribe(data=>{
+          console.log(data);
+    });
+    
+  }
+  
+  yesPublic(event){
+    var iduser=this.getID(event);
+    console.log(iduser);
+    
+    var data={
+      access:true
+    }
+    
+    this.userDataBaseService.updateAccess(iduser,data).subscribe(data=>{
+          console.log(data);
+    });
+    
+  }
+  
 
   ngOnInit() {
     
@@ -221,6 +350,8 @@ export class IndexComponent implements OnInit {
      this.prodcutsDataBaseService.getData(this.onResponse.bind(this));
      this.commentsDataBaseService.getData(this.onResponseComments.bind(this));
      this.cartDataBaseService.getData(this.onResponseCart.bind(this));
+     this.wishListService.getData(this.onResponseWish.bind(this));
+     this.userDataBaseService.getData(this.onResponseUser.bind(this));
   
   }
 

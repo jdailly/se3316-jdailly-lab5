@@ -10,10 +10,18 @@ import { UserDataBaseService} from '../user-data-base.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-
-  constructor(private authService: AuthService) { }
+  
+  user;
+  
+  constructor(private authService: AuthService, private userDataBaseService: UserDataBaseService) { }
+  
+ 
+ onResponseUser(res: string) {
+    this.user = res;
+  }
 
   ngOnInit() {
+    this.userDataBaseService.getData(this.onResponseUser.bind(this));
   }
 
 }
