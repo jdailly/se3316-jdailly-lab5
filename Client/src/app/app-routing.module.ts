@@ -7,13 +7,17 @@ import {CatalogComponent } from './catalog/catalog.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { UsersWishListComponent } from './users-wish-list/users-wish-list.component';
 import { AllWishListComponent } from './all-wish-list/all-wish-list.component';
+import { ManageAccountsComponent } from './manage-accounts/manage-accounts.component';
+import { ManageProductsComponent } from './manage-products/manage-products.component';
 
 const routes: Routes = [
   {path: '', component: IndexComponent},
   {path: 'catalog', component: CatalogComponent},
   {path: 'shopping', component: ShoppingCartComponent},
   {path: 'userWishList', component: UsersWishListComponent},
-  {path: 'allWishList', component: AllWishListComponent}
+  {path: 'allWishList', component: AllWishListComponent},
+  {path: 'manageAccount', component: ManageAccountsComponent}
+  {path: 'ManageProductsComponent', component: ManageProductsComponent}
   ];
 
 @NgModule({

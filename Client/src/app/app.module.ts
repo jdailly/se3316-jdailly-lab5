@@ -30,6 +30,8 @@ import {WishListDataBaseService} from './wish-list-data-base.service';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { UsersWishListComponent } from './users-wish-list/users-wish-list.component';
 import { AllWishListComponent } from './all-wish-list/all-wish-list.component';
+import { ManageAccountsComponent } from './manage-accounts/manage-accounts.component';
+import { ManageProductsComponent } from './manage-products/manage-products.component';
 
 
 @NgModule({
@@ -42,6 +44,8 @@ import { AllWishListComponent } from './all-wish-list/all-wish-list.component';
     ShoppingCartComponent,
     UsersWishListComponent,
     AllWishListComponent,
+    ManageAccountsComponent,
+    ManageProductsComponent,
   ],
   imports: [
     BrowserModule,

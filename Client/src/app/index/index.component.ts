@@ -154,7 +154,8 @@ export class IndexComponent implements OnInit {
       productID: idProduct,
       user: userEmail,
       comment: comment,
-      rating: selected
+      rating: selected,
+      hidden: false
     }
     
     this.commentsDataBaseService.commentCreate(data).subscribe(data => {
@@ -187,6 +188,34 @@ export class IndexComponent implements OnInit {
     //this.updateEverything();
     
   }
+  
+  
+  hideComment(event){
+    var elementID = this.getID(event);
+    var data={
+      hidden: true,
+    }
+    
+    this.commentsDataBaseService.commentUpdate(elementID,data).subscribe(data => {
+            console.log(data);
+            
+            });
+    
+  }
+  
+  unHideComment(event){
+    var elementID = this.getID(event);
+    var data={
+      hidden: false,
+    }
+    
+    this.commentsDataBaseService.commentUpdate(elementID,data).subscribe(data => {
+            console.log(data);
+            
+            });
+    
+  }
+  
   
   getID(event)
   {

@@ -58,12 +58,18 @@
             <div>Purchased: {{product.purchased}}</div>
             <div>Description: {{product.des}}</div>
             <ng-container *ngFor="let comment of comment">
-              <div *ngIf="product._id == comment.productID">
+              <div *ngIf="((product._id == comment.productID)&&(comment.hidden!=true))">
                 <div>------------------------------------</div>
                 <div>User: {{comment.user}}</div>
                 <div>{{comment.comment}}</div>
                 <div>Rating: {{comment.rating}}</div>
+                <div *ngFor="let user of user">
+                <div *ngIf= "(user.manager==true)&&(user.email==(authService.user | async)?.email)">
+                  <button (click)="hideComment($event);" class={{comment._id}}>Hide</button>
+                </div>
               </div>
+              </div>
+              
               
             </ng-container>
             <div>----------------------------------------</div>
@@ -84,7 +90,20 @@
               <button  class={{product._id}} (click)="submit(selected,password, $event);" >Submit</button>
               
             </div>
+            <div *ngFor="let user of user">
+              <div *ngIf="((user.manager==true) && ((authService.user | async)?.email ==user.email))">
+                <h4>Hidden Comments</h4>
+                  <ng-container *ngFor="let comment of comment">
+                    <div *ngIf="((product._id == comment.productID)&&(comment.hidden!=false))">
+                      <div>------------------------------------</div>
+                      <div>User: {{comment.user}}</div>
+                      <div>{{comment.comment}}</div>
+                      <div>Rating: {{comment.rating}}</div>
+                      <button (click)="unHideComment($event);" class={{comment._id}}>Unhide</button>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
         </mat-expansion-panel>
         <br>
 </div>
-<router-outlet></router-outlet>

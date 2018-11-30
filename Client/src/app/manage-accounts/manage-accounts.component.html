@@ -1,0 +1,38 @@
+<h1 style= "text-align:center">Manage Account</h1>
+
+<!--TODO: Make current user accoutn not show up-->
+<h3>Store Manager</h3>
+<div *ngFor ="let user of user">
+    <div *ngIf = "(user.manager==true)&&((authService.user | async)?.email != user.email)">
+        <div *ngIf="user.active==true">
+            <h4>Account: {{user.email}}</h4>
+            <div>Take away store manager privlages:</div>
+            <span><button (click)="storeManagerOff($event);" class={{user._id}}>Submit</button></span>
+            <div>Disable Account:</div>
+            <span><button (click)="disableAccount($event);" class={{user._id}}>Submit</button></span>
+        </div>
+    </div>
+    <div *ngIf="user.active==false">
+            <div>Reactivate Account: </div>
+            <span><button (click)="activateaAccount($event);" class={{user._id}} >Reactivate</button></span>
+            
+    </div>
+</div>
+
+<h3>Authenticated Accounts</h3>
+<div *ngFor ="let user of user">
+    <div *ngIf = "(user.manager==false)">
+        <h4>Account: {{user.email}}</h4>
+        <div *ngIf="user.active==true">
+            <div>Give store Manager privlages:</div>
+            <span><button (click)="storeManagerOn($event);" class={{user._id}}>Submit</button></span>
+            <div>Disable Account:</div>
+            <span><button (click)="disableAccount($event);" class={{user._id}}>Submit</button></span>
+        </div>
+        <div *ngIf="user.active==false">
+            <div>Reactivate Account: </div>
+            <span><button (click)="activateaAccount($event);" class={{user._id}} >Reactivate</button></span>
+            
+        </div>
+    </div>
+</div>

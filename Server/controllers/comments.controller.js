@@ -38,6 +38,7 @@ exports.comments_create = function (req, res) {
 };
 
 
+
 // controllers/comments.controller.js
 exports.comments_details = function (req, res,next) {
     console.log(req.params.id);

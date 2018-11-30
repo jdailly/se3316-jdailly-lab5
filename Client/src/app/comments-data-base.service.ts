@@ -20,6 +20,10 @@ export class CommentsDataBaseService {
       });
   }
   
+  commentUpdate(id: String, data){
+    return this.http.put('/api/comments/'+id+'/update',data);
+  }
+  
   commentCreate(data){
     console.log("posting comment");
     

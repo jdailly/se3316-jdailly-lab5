@@ -21,7 +21,10 @@ exports.user_create = function (req, res) {
         {
             email: req.body.email,
             manager: req.body.manager,
-            active: req.body.active
+            active: req.body.active,
+            access: req.body.access,
+            collName: req.body.collName,
+            collDes: req.body.collDes
         }
     );
     
