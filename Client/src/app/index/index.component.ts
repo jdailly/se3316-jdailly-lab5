@@ -134,8 +134,10 @@ export class IndexComponent implements OnInit {
       this.wishListService.addWish(wishData).subscribe(data =>{
         console.log(data);
       })
+      this.updateEverything();
     }
     
+    //this.updateEverything();
     
     
   }
@@ -159,6 +161,8 @@ export class IndexComponent implements OnInit {
           console.log(data);
     });
     
+    this.updateEverything();
+    
   }
   
   
@@ -179,6 +183,8 @@ export class IndexComponent implements OnInit {
     }
     
     console.log(replace);
+    
+    //this.updateEverything();
     
   }
   
@@ -218,6 +224,7 @@ export class IndexComponent implements OnInit {
             this.cartDataBaseService.updateItem(cartID,cartUpdateData).subscribe(data => {
             console.log(data);
             });
+            this.updateEverything();
           }
         }
         
@@ -243,77 +250,79 @@ export class IndexComponent implements OnInit {
           });
         }
         
+        this.updateEverything();
+        
       }
     }
-    
+    //this.updateEverything();
   }
   
 
   
-  //TODO: ADD A CHECK TO SHOPPING CART QUANTITY
-  minus(){
-    console.log("minus");
-    var cartCheck=false;
-    var idAttr = this.getID(event);
+  // //TODO: ADD A CHECK TO SHOPPING CART QUANTITY
+  // minus(){
+  //   console.log("minus");
+  //   var cartCheck=false;
+  //   var idAttr = this.getID(event);
     
-    for(var i=0; i < this.product.length; i++){
-      if(this.product[i]._id == idAttr){
+  //   for(var i=0; i < this.product.length; i++){
+  //     if(this.product[i]._id == idAttr){
         
-        for(var j=0; j < this.cart.length; j++){
+  //       for(var j=0; j < this.cart.length; j++){
           
-          if(this.cart[j].item ==this.product[i].name){
+  //         if(this.cart[j].item ==this.product[i].name){
             
-            cartCheck=true;
+  //           cartCheck=true;
             
-            var quanItem = (this.cart[j].quantity)-1;
+  //           var quanItem = (this.cart[j].quantity)-1;
             
-            if(this.cart[j].quantity<=1){
-              console.log('deleting Item');
-              var deleteId= this.cart[j]._id;
-              console.log(deleteId);
-              this.cartDataBaseService.deleteItem(deleteId).subscribe(data =>{
-                console.log(data);
-              });
-            }
+  //           if(this.cart[j].quantity<=1){
+  //             console.log('deleting Item');
+  //             var deleteId= this.cart[j]._id;
+  //             console.log(deleteId);
+  //             this.cartDataBaseService.deleteItem(deleteId).subscribe(data =>{
+  //               console.log(data);
+  //             });
+  //           }
             
-            var cartUpdateData={
-              quantity: quanItem
-            }
+  //           var cartUpdateData={
+  //             quantity: quanItem
+  //           }
             
-            var cartID=this.cart[j]._id;
-            console.log(this.cart[j]._id);
-            this.cartDataBaseService.updateItem(cartID,cartUpdateData).subscribe(data => {
-            console.log(data);
-            });
-          }
-        }
+  //           var cartID=this.cart[j]._id;
+  //           console.log(this.cart[j]._id);
+  //           this.cartDataBaseService.updateItem(cartID,cartUpdateData).subscribe(data => {
+  //           console.log(data);
+  //           });
+  //         }
+  //       }
         
 
-        var quan =(this.product[i].quantity)+1;
+  //       var quan =(this.product[i].quantity)+1;
   
-        var data={
-          quantity: quan
-        }
+  //       var data={
+  //         quantity: quan
+  //       }
         
-        this.prodcutsDataBaseService.updateData(idAttr,data).subscribe(data => {
-          console.log(data);
-        });
+  //       this.prodcutsDataBaseService.updateData(idAttr,data).subscribe(data => {
+  //         console.log(data);
+  //       });
         
-        if (cartCheck==false){ 
-          var cartData={
-            userid: auth().currentUser.email,
-            item: this.product[i].name,
-            quantity: 1
-          }
-          this.cartDataBaseService.createItem(cartData).subscribe(data=>{
-          console.log(data);
-          });
-        }
+  //       if (cartCheck==false){ 
+  //         var cartData={
+  //           userid: auth().currentUser.email,
+  //           item: this.product[i].name,
+  //           quantity: 1
+  //         }
+  //         this.cartDataBaseService.createItem(cartData).subscribe(data=>{
+  //         console.log(data);
+  //         });
+  //       }
         
-      }
-    }
+  //     }
+  //   }
    
-  }
+  // }
   
   yesPrivate(event){
     var iduser=this.getID(event);
@@ -326,6 +335,8 @@ export class IndexComponent implements OnInit {
     this.userDataBaseService.updateAccess(iduser,data).subscribe(data=>{
           console.log(data);
     });
+    
+    //this.updateEverything();
     
   }
   
@@ -341,8 +352,20 @@ export class IndexComponent implements OnInit {
           console.log(data);
     });
     
+    //this.updateEverything();
+    
   }
   
+  
+  updateEverything(){
+    
+    this.prodcutsDataBaseService.getData(this.onResponse.bind(this));
+     this.commentsDataBaseService.getData(this.onResponseComments.bind(this));
+     this.cartDataBaseService.getData(this.onResponseCart.bind(this));
+     this.wishListService.getData(this.onResponseWish.bind(this));
+     this.userDataBaseService.getData(this.onResponseUser.bind(this));
+    
+  }
 
   ngOnInit() {
     
