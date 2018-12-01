@@ -20,6 +20,7 @@ exports.policy_create = function (req, res) {
     
     let policy = new Policy(
         {
+            name: req.body.name,
             descript: req.body.descript
             
         }

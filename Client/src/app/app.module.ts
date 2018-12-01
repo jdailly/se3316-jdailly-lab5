@@ -38,6 +38,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FooterComponent } from './footer/footer.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import {PolicyDataBaseService} from './policy-data-base.service';
+import { DMCAComponent } from './dmca/dmca.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import {PolicyDataBaseService} from './policy-data-base.service';
     NewCollectionComponent,
     FooterComponent,
     PrivacyPolicyComponent,
+    DMCAComponent,
   ],
   imports: [
     BrowserModule,

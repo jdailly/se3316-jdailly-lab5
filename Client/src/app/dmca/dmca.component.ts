@@ -8,18 +8,17 @@ import { UserDataBaseService} from '../user-data-base.service';
 
 import {firebase} from '@firebase/app';
 
-@Component({
-  selector: 'app-privacy-policy',
-  templateUrl: './privacy-policy.component.html',
-  styleUrls: ['./privacy-policy.component.css']
-})
 
-export class PrivacyPolicyComponent implements OnInit {
-  
-  policy;
+@Component({
+  selector: 'app-dmca',
+  templateUrl: './dmca.component.html',
+  styleUrls: ['./dmca.component.css']
+})
+export class DMCAComponent implements OnInit {
+
+   policy;
   
   user;
-  
   check;
 
   constructor(private privacyPolicyService: PolicyDataBaseService, private userDataBaseService: UserDataBaseService,private authService: AuthService) {}
@@ -57,9 +56,8 @@ export class PrivacyPolicyComponent implements OnInit {
     
   }
   
-  
   setCheck(){
-    this.check="privacy";
+    this.check="dmca";
   }
   
 
@@ -67,7 +65,6 @@ export class PrivacyPolicyComponent implements OnInit {
     
     this.privacyPolicyService.getData(this.onResponsePolicy.bind(this));
     this.userDataBaseService.getData(this.onResponseUser.bind(this));
-
   
     
   }

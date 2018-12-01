@@ -1,0 +1,14 @@
+<h1 style= "text-align:center">DMCA Policy</h1>
+
+<div *ngFor="let policy of policy">
+    <div *ngIf="policy.name == check">
+            <div align="center" > {{policy.descript}} </div>
+            
+            <a *ngFor= "let user of user">
+        <a *ngIf="(user.manager==true)&&(user.email==(authService.user | async)?.email)">
+          <input type="text" placeholder="Change Policy" [(ngModel)]="policyadd">
+          <button id={{policy._id}} (click)="policyChange($event,policyadd);">Change</button>
+        </a>
+        </a>
+    </div>
+</div>

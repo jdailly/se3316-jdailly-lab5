@@ -11,6 +11,7 @@ import { ManageAccountsComponent } from './manage-accounts/manage-accounts.compo
 import { ManageProductsComponent } from './manage-products/manage-products.component';
 import { NewCollectionComponent } from './new-collection/new-collection.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { DMCAComponent } from './dmca/dmca.component';
 
 const routes: Routes = [
   {path: '', component: IndexComponent},
@@ -21,7 +22,8 @@ const routes: Routes = [
   {path: 'manageAccount', component: ManageAccountsComponent},
   {path: 'ManageProducts', component: ManageProductsComponent},
   {path: 'NewCollection', component: NewCollectionComponent},
-  {path: 'policy', component: PrivacyPolicyComponent}
+  {path: 'policy', component: PrivacyPolicyComponent},
+  {path: 'dmca' , component: DMCAComponent}
   ];
 
 @NgModule({

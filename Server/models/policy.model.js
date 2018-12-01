@@ -2,7 +2,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 let PolicySchema = new Schema({
+    
+    name: {type: String, required: true},
     descript: {type: String, required: true},
+    
 }, {collection : 'policy'});
 
 
