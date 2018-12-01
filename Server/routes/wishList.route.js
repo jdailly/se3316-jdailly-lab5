@@ -18,3 +18,4 @@ router.put('/:id/des', wishList_controller.wishList_update_des);
 router.delete('/:id/delete', wishList_controller.wishList_delete);
 router.get('/',wishList_controller.wishList_findall);
 router.delete('/delete',wishList_controller.wishList_deleteItem);
+router.put('/:id/coll', wishList_controller.wishList_coll);

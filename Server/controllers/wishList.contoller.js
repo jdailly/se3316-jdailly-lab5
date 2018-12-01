@@ -17,13 +17,20 @@ exports.wishList_create = function (req, res) {
     console.log("post works");
     //console.log(req.body.email);
     
+    
+    
+    
     let wishList = new WishList(
         {
+            name: req.body.name,
             email: req.body.email,
-            item: req.body.item,
-            quantity: req.body.quantity,
-            des: req.body.des,
-            access: req.body.access
+            access: req.body.access,
+            descrip: req.body.descrip,
+            userCollection: [{
+                item: req.body.userColl.item,
+                quantity: req.body.userColl.quantity,
+                des: req.body.userColl.des
+            }]
         }
         );
     
@@ -36,6 +43,11 @@ exports.wishList_create = function (req, res) {
         res.send('WishList Created successfully')
     })
 };
+
+
+
+
+
 
 
 // controllers/wishLists.controller.js
@@ -56,6 +68,15 @@ function encodeHTML(s) {
 exports.wishList_update = function (req, res) {
     
     WishList.findByIdAndUpdate(req.params.id, {$set: req.body}, function (err, wishList,next) {
+        if (err) return next(err);
+        res.send('WishList udpated.');
+    });
+};
+
+exports.wishList_coll = function (req, res) {
+    console.log("bitch please");
+    console.log(req);
+    WishList.findByIdAndUpdate(req.params.id,{$push:{userCollection: req.body.userCollection}}, {$set: req.body.userCollection}, function (err, wishList,next) {
         if (err) return next(err);
         res.send('WishList udpated.');
     });

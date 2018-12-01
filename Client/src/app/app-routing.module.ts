@@ -9,6 +9,7 @@ import { UsersWishListComponent } from './users-wish-list/users-wish-list.compon
 import { AllWishListComponent } from './all-wish-list/all-wish-list.component';
 import { ManageAccountsComponent } from './manage-accounts/manage-accounts.component';
 import { ManageProductsComponent } from './manage-products/manage-products.component';
+import { NewCollectionComponent } from './new-collection/new-collection.component';
 
 const routes: Routes = [
   {path: '', component: IndexComponent},
@@ -16,8 +17,9 @@ const routes: Routes = [
   {path: 'shopping', component: ShoppingCartComponent},
   {path: 'userWishList', component: UsersWishListComponent},
   {path: 'allWishList', component: AllWishListComponent},
-  {path: 'manageAccount', component: ManageAccountsComponent}
-  {path: 'ManageProductsComponent', component: ManageProductsComponent}
+  {path: 'manageAccount', component: ManageAccountsComponent},
+  {path: 'ManageProducts', component: ManageProductsComponent},
+  {path: 'NewCollection', component: NewCollectionComponent}
   ];
 
 @NgModule({

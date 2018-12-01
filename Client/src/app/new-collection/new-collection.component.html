@@ -1,0 +1,13 @@
+<h1 style= "text-align:center">Make new Collection</h1>
+<div align="center"><input  type="text" [(ngModel)]="name" placeholder="Collection Name" /></div>
+<br>
+<div align="center">
+    <select [(ngModel)]="access">
+    <option value="true">Public</option>
+    <option value="false" selected>Private</option>
+  </select>
+</div>
+<br>
+<div align="center"> <input type="text" placeholder="Collection Description" [(ngModel)]="description"></div>
+<br>
+<div align="center"> <button   (click)="Submit(name,access,description)">Submit</button></div>

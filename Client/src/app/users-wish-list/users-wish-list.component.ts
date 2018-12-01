@@ -16,6 +16,7 @@ export class UsersWishListComponent implements OnInit {
   
   wish;
   user;
+  deleteBtn;
   
   constructor(private wishListService: WishListDataBaseService, private authService: AuthService,
   private userDataBaseService: UserDataBaseService) { }
@@ -31,24 +32,37 @@ export class UsersWishListComponent implements OnInit {
     console.log(this.wish[0].email);
   }
   
-  ChangeName(event,name: String){
+  editName(event,name: String){
     var idWish =this.getID(event);
     console.log(idWish);
+    console.log(name);
     
     var data={
-      collName:name
+      name:name
     }
     
-    this.userDataBaseService.updateAccess(idWish,data).subscribe(data => {
+    this.wishListService.updateWish(idWish,data).subscribe(data => {
             console.log(data);
     });
   }
   
-  Changequan(event,quan){
-     var idWish = this.getID(event);
+  // Changequan(event,quan){
+  //   var idWish = this.getID(event);
      
-     var data={
-      quantity:quan
+  //   var data={
+  //     quantity:quan
+  //   }
+    
+  //   this.wishListService.updateWish(idWish,data).subscribe(data => {
+  //           console.log(data);
+  //           });
+  // }
+  
+  editDes(event,des){
+    var idWish = this.getID(event);
+    console.log(des);
+    var data={
+      descrip:des
     }
     
     this.wishListService.updateWish(idWish,data).subscribe(data => {
@@ -56,24 +70,34 @@ export class UsersWishListComponent implements OnInit {
             });
   }
   
-  ChangeDes(event,des){
+  editAccess(event,access){
     var idWish = this.getID(event);
-    
     var data={
-      collDes:des
+      access:access
     }
     
-    this.userDataBaseService.updateAccess(idWish,data).subscribe(data => {
+    this.wishListService.updateWish(idWish,data).subscribe(data => {
             console.log(data);
             });
   }
   
-  Delete(event){
-     var idWish = this.getID(event);
+clickMethod(name: string) {
+  if(confirm("Are you sure to delete "+name)) {
+    this.deleteColl();
+  }
+}
+  
+deleteColl(){
     
-    this.wishListService.deleteItem(idWish).subscribe(data => {
+    this.wishListService.deleteItem(this.deleteBtn).subscribe(data => {
             console.log(data);
             });
+  }
+  
+  setDeleteBtn(event){
+    var target = event.target || event.srcElement || event.currentTarget;
+    var idAttr = target.attributes.id.value;
+    this.deleteBtn = idAttr;
   }
   
   getID(event)

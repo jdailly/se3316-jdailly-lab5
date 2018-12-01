@@ -32,7 +32,9 @@ import { UsersWishListComponent } from './users-wish-list/users-wish-list.compon
 import { AllWishListComponent } from './all-wish-list/all-wish-list.component';
 import { ManageAccountsComponent } from './manage-accounts/manage-accounts.component';
 import { ManageProductsComponent } from './manage-products/manage-products.component';
-
+import { NewCollectionComponent } from './new-collection/new-collection.component';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -46,6 +48,7 @@ import { ManageProductsComponent } from './manage-products/manage-products.compo
     AllWishListComponent,
     ManageAccountsComponent,
     ManageProductsComponent,
+    NewCollectionComponent,
   ],
   imports: [
     BrowserModule,

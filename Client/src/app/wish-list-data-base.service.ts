@@ -34,6 +34,11 @@ export class WishListDataBaseService {
   }
   
   
+  updateWishColl(id: String,data){
+    return this.http.put('/api/wishList/'+id+'/coll',data);
+  }
+  
+  
   updateItem(id: String,data){
     
     return this.http.put('/api/wishList/'+id+'/item', data);

@@ -81,55 +81,27 @@ export class IndexComponent implements OnInit {
     }
     
     
-    //check if user already has a wish list
-    // for (var i=0; i<this.wishList.length;i++){
-    //   if(this.wishList[i].email == auth().currentUser.email){
-    //     console.log("existUser");
-    //     existUser=true;
-    //     var wishListId=this.wishList[i]._id;
-    //     var itemData={
-    //       item: wishName
-    //       // quantity: amount,
-    //       // des: wishDes
-    //     }
-    //     var quanData={
-    //       quantity: amount
-    //     }
-    //     var desData={
-    //       des: wishDes
-    //     }
-        
-        
-    //     this.wishListService.updateItem(wishListId,itemData).subscribe(data => {
-    //       console.log(data);
-    //     });
-        
-    //     console.log("wait");
-        
-    //     this.wishListService.updateQuan(wishListId,quanData).subscribe(data => {
-    //       console.log(data);
-    //     });
-    //     console.log("wait");
-    //     this.wishListService.updateDes(wishListId,desData).subscribe(data => {
-    //       console.log(data);
-    //     });
-    //     console.log("wait");
-    //   }
-    // }
     
     if(existUser == false){
       
       var wishEmail=auth().currentUser.email;
       console.log(wishName);
+      
+      var userCollection = {
+        
+        item:"test",
+        quantity:0,
+        des:"test"
+        
+      }
       var wishData ={
         email: wishEmail,
-        item: wishName,
-        quantity: amount,
-        des: wishDes,
-        access: true
+        access: true,
+        userColl: userCollection
         
       }
       
+      console.log(wishData);
       
       this.wishListService.addWish(wishData).subscribe(data =>{
         console.log(data);
@@ -142,7 +114,43 @@ export class IndexComponent implements OnInit {
     
   }
   
+  
+  updateDateWishList(event,amount,name,des){
+    var elementID = this.getID(event);
+    
+    
+    console.log(amount);
+    console.log(name);
+    console.log(des);
+
+    var userCollection = {
+      
+        item:name,
+        quantity: amount,
+        des:des
+        
+      }
+      
+      var wishData ={
+        
+        userCollection: userCollection
+        
+      }
+      
+      console.log(wishData);
+      
+      
+       this.wishListService.updateWishColl(elementID,wishData).subscribe(data => {
+          console.log(data);
+    });
+    
+    
+  }
+  
+  
   submit(selected:Number, comment:String, event){
+    
+    
     console.log(comment);
     console.log(selected);
     console.log(event);
@@ -288,7 +296,115 @@ export class IndexComponent implements OnInit {
   
 
   
-  // //TODO: ADD A CHECK TO SHOPPING CART QUANTITY
+  
+  
+  yesPrivate(event){
+    var iduser=this.getID(event);
+    console.log(iduser);
+    
+    var data={
+      access:false
+    }
+    
+    this.userDataBaseService.updateAccess(iduser,data).subscribe(data=>{
+          console.log(data);
+    });
+    
+    //this.updateEverything();
+    
+  }
+  
+  yesPublic(event){
+    var iduser=this.getID(event);
+    console.log(iduser);
+    
+    var data={
+      access:true
+    }
+    
+    this.userDataBaseService.updateAccess(iduser,data).subscribe(data=>{
+          console.log(data);
+    });
+    
+    //this.updateEverything();
+    
+  }
+  
+  
+  updateEverything(){
+    
+    this.prodcutsDataBaseService.getData(this.onResponse.bind(this));
+     this.commentsDataBaseService.getData(this.onResponseComments.bind(this));
+     this.cartDataBaseService.getData(this.onResponseCart.bind(this));
+     this.wishListService.getData(this.onResponseWish.bind(this));
+     this.userDataBaseService.getData(this.onResponseUser.bind(this));
+    
+  }
+
+  ngOnInit() {
+    
+    
+     this.prodcutsDataBaseService.getData(this.onResponse.bind(this));
+     this.commentsDataBaseService.getData(this.onResponseComments.bind(this));
+     this.cartDataBaseService.getData(this.onResponseCart.bind(this));
+     this.wishListService.getData(this.onResponseWish.bind(this));
+     this.userDataBaseService.getData(this.onResponseUser.bind(this));
+  
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//check if user already has a wish list
+    // for (var i=0; i<this.wishList.length;i++){
+    //   if(this.wishList[i].email == auth().currentUser.email){
+    //     console.log("existUser");
+    //     existUser=true;
+    //     var wishListId=this.wishList[i]._id;
+    //     var itemData={
+    //       item: wishName
+    //       // quantity: amount,
+    //       // des: wishDes
+    //     }
+    //     var quanData={
+    //       quantity: amount
+    //     }
+    //     var desData={
+    //       des: wishDes
+    //     }
+        
+        
+    //     this.wishListService.updateItem(wishListId,itemData).subscribe(data => {
+    //       console.log(data);
+    //     });
+        
+    //     console.log("wait");
+        
+    //     this.wishListService.updateQuan(wishListId,quanData).subscribe(data => {
+    //       console.log(data);
+    //     });
+    //     console.log("wait");
+    //     this.wishListService.updateDes(wishListId,desData).subscribe(data => {
+    //       console.log(data);
+    //     });
+    //     console.log("wait");
+    //   }
+    // }
+    
+    
+    // //TODO: ADD A CHECK TO SHOPPING CART QUANTITY
   // minus(){
   //   console.log("minus");
   //   var cartCheck=false;
@@ -352,59 +468,3 @@ export class IndexComponent implements OnInit {
   //   }
    
   // }
-  
-  yesPrivate(event){
-    var iduser=this.getID(event);
-    console.log(iduser);
-    
-    var data={
-      access:false
-    }
-    
-    this.userDataBaseService.updateAccess(iduser,data).subscribe(data=>{
-          console.log(data);
-    });
-    
-    //this.updateEverything();
-    
-  }
-  
-  yesPublic(event){
-    var iduser=this.getID(event);
-    console.log(iduser);
-    
-    var data={
-      access:true
-    }
-    
-    this.userDataBaseService.updateAccess(iduser,data).subscribe(data=>{
-          console.log(data);
-    });
-    
-    //this.updateEverything();
-    
-  }
-  
-  
-  updateEverything(){
-    
-    this.prodcutsDataBaseService.getData(this.onResponse.bind(this));
-     this.commentsDataBaseService.getData(this.onResponseComments.bind(this));
-     this.cartDataBaseService.getData(this.onResponseCart.bind(this));
-     this.wishListService.getData(this.onResponseWish.bind(this));
-     this.userDataBaseService.getData(this.onResponseUser.bind(this));
-    
-  }
-
-  ngOnInit() {
-    
-    
-     this.prodcutsDataBaseService.getData(this.onResponse.bind(this));
-     this.commentsDataBaseService.getData(this.onResponseComments.bind(this));
-     this.cartDataBaseService.getData(this.onResponseCart.bind(this));
-     this.wishListService.getData(this.onResponseWish.bind(this));
-     this.userDataBaseService.getData(this.onResponseUser.bind(this));
-  
-  }
-
-}

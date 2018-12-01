@@ -14,15 +14,27 @@
       <a *ngIf="(authService.user | async) && ((authService.user | async)?.emailVerified)">
         <a class="nav-item nav-link" href="/shopping">Shopping Cart</a>
       </a>
+      
+      <a *ngIf="(authService.user | async) && ((authService.user | async)?.emailVerified)">
+        <a class="nav-item nav-link" href="/NewCollection">New Collection</a>
+      </a>
+      
       <a *ngIf="(authService.user | async) && ((authService.user | async)?.emailVerified)">
         <a class="nav-item nav-link" href="/userWishList">Your Wish List</a>
       </a>
+      
+      
       <a *ngIf="(authService.user | async) && ((authService.user | async)?.emailVerified)">
         <a class="nav-item nav-link" href="/allWishList">All Wish Lists</a>
       </a>
       <a *ngFor= "let user of user">
         <a *ngIf="(authService.user | async) && ((authService.user | async)?.emailVerified)&&(user.manager==true)">
           <a class="nav-item nav-link" href="/manageAccount">Manage Accounts</a>
+        </a>
+      </a>
+      <a *ngFor= "let user of user">
+        <a *ngIf="(authService.user | async) && ((authService.user | async)?.emailVerified)&&(user.manager==true)">
+          <a class="nav-item nav-link" href="/ManageProducts">Manage Products</a>
         </a>
       </a>
     </div>

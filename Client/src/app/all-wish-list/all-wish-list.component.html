@@ -1,21 +1,27 @@
 <h1 style= "text-align:center">Wish Lists</h1>
 
- <div *ngFor="let user of user">
-     <div *ngIf="user.access==true">
-         <h4>{{user.collName}}</h4>
-         <div>{{user.collDes}}</div>
-         <div *ngFor="let wish of wish">
-             <ng-container *ngIf="(user.email==wish.email)">
-                 <mat-accordion>
-                  <mat-expansion-panel>
-                    <mat-expansion-panel-header>
-                        <div>Name: {{wish.item}}</div>
-                    </mat-expansion-panel-header>
-                    <div>Quantity: {{wish.quantity}}</div>
-                    <div>Description:{{wish.des}}</div>
-                  </mat-expansion-panel>
-                </mat-accordion>
-            </ng-container>
-        </div>
-    </div>
+ <div *ngFor="let wish of wish">
+     
+     <ng-container *ngIf="wish.access==true">
+         
+    
+         <mat-accordion>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <div>Name: {{wish.name}}</div>
+            </mat-expansion-panel-header>
+            <h5>Collection Owner: {{wish.email}}</h5>
+            <h5>Collection Description: {{wish.descrip}}</h5>
+            
+            <div *ngFor="let userCollection of wish.userCollection">
+                
+                <div *ngIf="userCollection.quantity != 0">
+                    <h5>{{userCollection.item}}</h5>
+                    <div>Quantity: {{userCollection.quantity}}</div>
+                    <div>Description: {{userCollection.des}}</div>
+                </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+    </ng-container>
 </div>
