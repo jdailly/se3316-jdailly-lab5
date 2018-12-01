@@ -10,6 +10,7 @@ import { AllWishListComponent } from './all-wish-list/all-wish-list.component';
 import { ManageAccountsComponent } from './manage-accounts/manage-accounts.component';
 import { ManageProductsComponent } from './manage-products/manage-products.component';
 import { NewCollectionComponent } from './new-collection/new-collection.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 
 const routes: Routes = [
   {path: '', component: IndexComponent},
@@ -19,7 +20,8 @@ const routes: Routes = [
   {path: 'allWishList', component: AllWishListComponent},
   {path: 'manageAccount', component: ManageAccountsComponent},
   {path: 'ManageProducts', component: ManageProductsComponent},
-  {path: 'NewCollection', component: NewCollectionComponent}
+  {path: 'NewCollection', component: NewCollectionComponent},
+  {path: 'policy', component: PrivacyPolicyComponent}
   ];
 
 @NgModule({

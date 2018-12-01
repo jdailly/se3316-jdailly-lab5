@@ -35,6 +35,9 @@ import { ManageProductsComponent } from './manage-products/manage-products.compo
 import { NewCollectionComponent } from './new-collection/new-collection.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FooterComponent } from './footer/footer.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import {PolicyDataBaseService} from './policy-data-base.service';
 
 @NgModule({
   declarations: [
@@ -49,6 +52,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     ManageAccountsComponent,
     ManageProductsComponent,
     NewCollectionComponent,
+    FooterComponent,
+    PrivacyPolicyComponent,
   ],
   imports: [
     BrowserModule,

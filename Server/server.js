@@ -11,6 +11,7 @@ const apiUser= require('./routes/user.route');
 const apiComments= require('./routes/comments.route');
 const apiCart = require('./routes/cart.route');
 const apiWishList = require('./routes/wishList.route');
+const apiPolicy = require('./routes/policy.route');
 
 
 
@@ -39,6 +40,7 @@ app.use('/api/user', apiUser);
 app.use('/api/comments', apiComments);
 app.use('/api/cart',apiCart);
 app.use('/api/wishList',apiWishList);
+app.use('/api/policy', apiPolicy);
 
 
 
