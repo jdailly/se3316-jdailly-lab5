@@ -22,7 +22,8 @@ exports.comments_create = function (req, res) {
             productID: req.body.productID,
             user: req.body.user,
             comment: req.body.comment,
-            rating: req.body.rating
+            rating: req.body.rating,
+            hidden: req.body.hidden
         }
     );
     

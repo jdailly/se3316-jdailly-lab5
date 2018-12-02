@@ -12,3 +12,9 @@ img{
 .example-container > * {
   width: 100%;
 }
+
+body{
+
+    margin-bottom: 50px;
+  
+}

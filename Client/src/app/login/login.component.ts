@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
 
   ButtonPressed: boolean=false;
   response;
+  user;
   
   email: string;
   password: string;
@@ -22,6 +23,10 @@ export class LoginComponent implements OnInit {
   
   onResponse(res: string) {
     this.response = res;
+  }
+  onResponseUser(res: string) {
+    this.user = res;
+    
   }
     
     buttonClickTrue(){
@@ -35,14 +40,29 @@ export class LoginComponent implements OnInit {
     }
     
     signup(email: String, password: String) {
+      
        this.authService.signup(this.email, this.password);
        this.sendUser(this.email);
        this.email = this.password = '';
      }
   
     login(email: String, password: String) {
-      this.authService.login(this.email, this.password);
-      this.email = this.password = '';    
+      
+      for(var i =0; this.user.length; i++){
+        if(email==this.user[i].email){
+          if(this.user[i].active==false){
+            alert('Your account has been deactivated, Please contact jdailly@uwo.ca');
+            break;
+          }
+          else{
+            this.authService.login(this.email, this.password);
+              this.email = this.password = '';
+              break;
+          }
+        }
+      }
+      // this.authService.login(this.email, this.password);
+      // this.email = this.password = '';    
     }
   
     logout() {
@@ -89,7 +109,7 @@ export class LoginComponent implements OnInit {
 
 
   ngOnInit() {
-    
+     this.userDataBaseService.getData(this.onResponseUser.bind(this));
   }
 
 }

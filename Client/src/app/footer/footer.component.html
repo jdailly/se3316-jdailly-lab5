@@ -1,4 +1,10 @@
 <nav class="navbar navbar-dark bg-dark mt-5 fixed-bottom">
   <a class="nav-item nav-link" href="/policy">Privacy Policy</a>
   <a class="nav-item nav-link" href="/dmca">DMCA Policy</a>
+  <a *ngFor= "let user of user">
+      <a *ngIf="(authService.user | async) && ((authService.user | async)?.emailVerified)&&(user.manager==true)&&(user.email==(authService.user | async)?.email)">
+         <a align="center" class="nav-item nav-link" href="/dmcaDoc">DMCA Document</a>
+      </a>
+   </a>
+  
 </nav>

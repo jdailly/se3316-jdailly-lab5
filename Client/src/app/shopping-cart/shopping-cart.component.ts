@@ -15,6 +15,8 @@ export class ShoppingCartComponent implements OnInit {
 
   cart;
   products;
+  total;
+  showReceipt;
 
 
   constructor(private cartDataBaseService: CartDataBaseService,
@@ -23,9 +25,126 @@ export class ShoppingCartComponent implements OnInit {
 
  onResponseCart(res: string) {
     this.cart = res;
+    
   }
   onResponseProducts(res: string) {
     this.products = res;
+  }
+  
+  
+  initialReceipt(){
+    this.showReceipt=false;
+  }
+  setReceipt(){
+    console.log(this.showReceipt)
+    this.showReceipt=true;
+    console.log(this.showReceipt)
+  }
+  
+  addTotal(itemTotal){
+    console.log("adding");
+    this.addTotal=this.addTotal+itemTotal;
+    
+  }
+  
+  initailTotal(){
+    this.total=0;
+    console.log("help me");
+    for( var i=0; i< this.cart.length; i++){
+      if ((auth().currentUser.email)==this.cart[i].userid){
+        if(this.cart[i].bought==false){
+          this.total=(this.cart[i].price*this.cart[i].quantity)+this.total;
+        }
+      }
+      
+    }
+    
+  }
+  
+  
+  
+  
+  clickMethodClear() {
+  if(confirm("Are you sure to clear Cart?")) {
+    this.clearCart();
+  }
+}
+
+clickMethoDelete() {
+  if(confirm("Are you sure to Buy?")) {
+    this.addPurchased();
+    this.deleteCart();
+    this.boughtCart();
+    this.cartDataBaseService.getData(this.onResponseCart.bind(this));
+    this.initailTotal();
+    this.setReceipt();
+    this.cartDataBaseService.getData(this.onResponseCart.bind(this));
+  }
+}
+
+  
+  UpdateQuantity(event,changeAmount){
+    var quantityCheck=false;
+    
+    for( var i = 0; i < this.cart.length; i++ ){
+      
+    if ((auth().currentUser.email)==this.cart[i].userid){
+      //put the items from the cart back into the products database
+      for(var j=0;j<this.products.length; j++){
+        if(this.products[j].name == this.cart[i].item){
+          if(this.products[j].quantity<(changeAmount+this.cart[i].quantity)){
+            alert("Not enough items in the cart!");
+            quantityCheck=true;
+            break;
+          }
+          else{
+            var addedQuan = this.products[j].quantity+this.cart[i].quantity-changeAmount;
+            
+            var data={
+              
+              quantity: addedQuan
+              
+            }
+            
+            var productid= this.products[j]._id;
+            this.prodcutsDataBaseService.updateData(productid,data).subscribe(data => {
+            console.log(data);
+          });
+          
+        }
+      }
+      
+    }
+      
+    } 
+    
+   }
+   
+   
+   
+  if(quantityCheck==false){
+   var elementID = this.getID(event);
+    
+    var data2 ={
+      quantity: changeAmount
+    }
+    
+    this.cartDataBaseService.updateItem(elementID,data2).subscribe(data => {
+          console.log(data);
+    });
+  }
+   
+    
+    
+    
+  }
+   
+   getID(event)
+  {
+    var target = event.target || event.srcElement || event.currentTarget;
+    var idAttr = target.attributes.id.value;
+    return idAttr;
+    
   }
   
  clearCart(){
@@ -51,28 +170,109 @@ export class ShoppingCartComponent implements OnInit {
       this.cartDataBaseService.deleteItem(cartId).subscribe(data=>{
         console.log(data); 
       });
+      this.cartDataBaseService.getData(this.onResponseCart.bind(this));
     }
       
     } 
     
    }
+   
+   this.updateCart();
+   
+ }
+ 
+ updateCart(){
+     this.cartDataBaseService.getData(this.onResponseCart.bind(this));
+     this.prodcutsDataBaseService.getData(this.onResponseProducts.bind(this));
+ }
+ 
+ deleteItem(event){
+   var elementID=this.getID(event);
+   
+   this.cartDataBaseService.deleteItem(elementID).subscribe(data=>{
+        console.log(data); 
+      });
+   
+   this.cartDataBaseService.getData(this.onResponseCart.bind(this));
  }
  
  
- deleteCart(){
+ boughtCart(){
+   this.cartDataBaseService.getData(this.onResponseCart.bind(this));
    for( var i = 0; i < this.cart.length; i++ ){
     if ((auth().currentUser.email)==this.cart[i].userid){
        var cartId= this.cart[i]._id;
-      this.cartDataBaseService.deleteItem(cartId).subscribe(data=>{
+       
+       var data={
+         
+         bought: true
+         
+       }
+       console.log("in the cart");
+      this.cartDataBaseService.updateItem(cartId, data).subscribe(data=>{
         console.log(data); 
       });
     }
    }
  }
  
+ 
+ 
+ 
+ deleteCart(){
+   console.log("help delete");
+   for( var i = 0; i < this.cart.length; i++ ){
+    if ((auth().currentUser.email)==this.cart[i].userid){
+      if(this.cart[i].bought==true){
+         var cartId= this.cart[i]._id;
+        this.cartDataBaseService.deleteItem(cartId).subscribe(data=>{
+          console.log(data); 
+        });
+      }
+    }
+   }
+   
+   this.updateCart();
+  
+ }
+ 
+ 
+ addPurchased(){
+      for( var i = 0; i < this.cart.length; i++ ){
+      console.log("IN PURCHASED");
+      //put the items from the cart back into the products database
+          for(var j=0;j<this.products.length; j++){
+            if(this.products[j].name == this.cart[i].item){
+              if(this.cart[i].bought==false){
+                var newPurchased= this.products[j].purchased + this.cart[i].quantity;
+                
+                var data ={
+                  purchased: newPurchased
+                }
+                
+                console.log("ADSASSA");
+                console.log(newPurchased);
+                var productid= this.products[j]._id;
+            this.prodcutsDataBaseService.updateData(productid,data).subscribe(data => {
+            console.log(data);
+            
+            });
+              
+              }
+              
+            }
+          }
+  
+    }
+}
+ 
+ 
   ngOnInit() {
+    
      this.cartDataBaseService.getData(this.onResponseCart.bind(this));
      this.prodcutsDataBaseService.getData(this.onResponseProducts.bind(this));
+     this.initialReceipt();
+     
   }
 
 }

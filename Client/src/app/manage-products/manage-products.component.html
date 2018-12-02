@@ -1,37 +1,42 @@
-<h1 style= "text-align:center">Manage All Products</h1>
 
-<h3>Add an Item</h3>
-    <div>Name: 
-        <input type="text" [(ngModel)]="Addname" placeholder="name" > 
-    </div>
-    <div>Quantity: 
-        <input type="number" [(ngModel)]="Addquantity" placeholder="quantity" > 
-    </div>
-    <div>Price: 
-        <input type="number" [(ngModel)]="Addprice" placeholder="Price" > 
-    </div>
-    <div>Description: 
-        <input type="text" [(ngModel)]="Adddes" placeholder="Description" >
-    </div>
-    <button (click)="AddItem(Addname,Addprice,Addquantity,Adddes)"> Add </button>
 
-<div *ngFor="let product of product">
-        
-    <h4>{{product.name}}</h4>
-        <input type="number" [(ngModel)]="name" placeholder="name" > 
-        <button (click)="updateName($event,name)" class={{product._id}} > submit </button> 
-    <div>Quantity: {{product.quantity}} 
-        <input type="number" [(ngModel)]="quantity" placeholder="quantity" > 
-        <button (click)="updateQuan($event,quantity)" class={{product._id}} > submit </button> 
+    <h1 style= "text-align:center">Manage All Products</h1>
+    
+    <h3>Add an Item</h3>
+        <div>Name: 
+            <input type="text" [(ngModel)]="Addname" placeholder="name" > 
+        </div>
+        <div>Quantity: 
+            <input type="number" [(ngModel)]="Addquantity" placeholder="quantity" > 
+        </div>
+        <div>Price: 
+            <input type="number" [(ngModel)]="Addprice" placeholder="Price" > 
+        </div>
+        <div>Description: 
+            <input type="text" [(ngModel)]="Adddes" placeholder="Description" >
+        </div>
+        <button (click)="AddItem(Addname,Addprice,Addquantity,Adddes)"> Add </button>
+    
+    <div *ngFor="let product of product">
+            
+        <h4>{{product.name}}</h4>
+            <input type="text" [(ngModel)]="name" placeholder="name" > 
+            <button (click)="updateName($event,name)" class={{product._id}} > submit </button> 
+        <div>Quantity: {{product.quantity}} 
+            <input type="number" [(ngModel)]="quantity" placeholder="quantity" > 
+            <button (click)="updateQuan($event,quantity)" class={{product._id}} > submit </button> 
+        </div>
+        <div>Price: ${{product.price}} 
+            <input type="number" [(ngModel)]="price" placeholder="Price" > 
+            <button (click)="updatePrice($event,price)" class={{product._id}} > submit </button> 
+        </div>
+        <div>Description: {{product.des}}
+            <input type="text" [(ngModel)]="des" placeholder="Description" > 
+            <button (click)="updateDes($event,des)" class={{product._id}} > submit </button> 
+        </div>
+        <button (click)="deleteItem($event)" class={{product._id}} > Delete </button> 
+    <br>
+    <br>
+    <br>
+    <br>
     </div>
-    <div>Price: ${{product.price}} 
-        <input type="number" [(ngModel)]="price" placeholder="Price" > 
-        <button (click)="updatePrice($event,price)" class={{product._id}} > submit </button> 
-    </div>
-    <div>Description: {{product.des}}
-        <input type="text" [(ngModel)]="des" placeholder="Description" > 
-        <button (click)="updateDes($event,des)" class={{product._id}} > submit </button> 
-    </div>
-    <button (click)="deleteItem($event)" class={{product._id}} > Delete </button> 
-
-</div>

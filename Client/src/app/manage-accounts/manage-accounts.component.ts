@@ -3,7 +3,7 @@ import { UserDataBaseService} from '../user-data-base.service';
 import { AuthService } from '../auth.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';
-
+import {firebase} from '@firebase/app';
 
 
 @Component({

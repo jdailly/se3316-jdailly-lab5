@@ -28,12 +28,12 @@
         <a class="nav-item nav-link" href="/allWishList">All Wish Lists</a>
       </a>
       <a *ngFor= "let user of user">
-        <a *ngIf="(authService.user | async) && ((authService.user | async)?.emailVerified)&&(user.manager==true)">
+        <a *ngIf="(authService.user | async) && ((authService.user | async)?.emailVerified)&&(user.manager==true)&&(user.email==(authService.user | async)?.email)">
           <a class="nav-item nav-link" href="/manageAccount">Manage Accounts</a>
         </a>
       </a>
       <a *ngFor= "let user of user">
-        <a *ngIf="(authService.user | async) && ((authService.user | async)?.emailVerified)&&(user.manager==true)">
+        <a *ngIf="(authService.user | async) && ((authService.user | async)?.emailVerified)&&(user.manager==true)&&(user.email==(authService.user | async)?.email)">
           <a class="nav-item nav-link" href="/ManageProducts">Manage Products</a>
         </a>
       </a>
@@ -41,15 +41,6 @@
   </div>
   <div class="navbar-expand ml-auto navbar-nav">
     <div class="navbar-nav">
-      <a class="nav-item nav-link" href="https://github.com/beeman" target="_blank">
-        <i class="fa fa-github"></i>
-      </a>
-      <a class="nav-item nav-link" href="https://twitter.com/beeman_nl" target="_blank">
-        <i class="fa fa-twitter"></i>
-      </a>
-      <a class="nav-item nav-link" href="https://medium.com/@beeman" target="_blank">
-        <i class="fa fa-medium"></i>
-      </a>
       <app-login></app-login>
     </div>
   </div>

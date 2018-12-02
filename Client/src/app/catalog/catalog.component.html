@@ -14,22 +14,89 @@
     <!--    </div>-->
     <!--    <div>----------------------------</div>-->
     
-    <div *ngFor="let product of product">
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              {{product.name}}
-            </mat-panel-title>
-            <mat-panel-description>
-            </mat-panel-description>
-          </mat-expansion-panel-header>
+    <div *ngFor="let product of product;">
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+              <img src="{{product.url}}">
+                {{product.name}}
+              </mat-panel-title>
+              <mat-panel-description>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div *ngIf="(authService.user | async) && ((authService.user | async)?.emailVerified)">
+              <div>Add to Cart:
+              <br>
+              <div>Size:<input type="Number" min=5 max=13 value=10 /></div>
+              <div>Amount:<input type="Number" min=1 max=10 [(ngModel)]="amount"/></div>
+              <button class={{product._id}} (click)="add($event,amount,product.quantity,product.price);">Add To Cart </button>
+              <h5>Add to collection:</h5>
+              <div *ngFor= "let wishList of wishList">
+                <div *ngIf="(wishList.email==((authService.user | async)?.email))">
+                  <div><button (click)="updateDateWishList($event,amount,product.name,product.des)" class="{{wishList._id}}">{{wishList.name}}</button></div>
+                </div>
+              </div>
+              
+              </div> 
+            </div>
             <div>Quantity: {{product.quantity}}</div>
-            <div>Price:{{product.price}}</div>
-            <div>Purchased: {{product.purchased}}</div>
-            <div>Description: {{product.des}}</div>
-            <div>ProductID: {{product._id}}</div>
-            
-        </mat-expansion-panel>
-        <br>
-    </div>
+              <div>Price:{{product.price}}</div>
+              <div>Purchased: {{product.purchased}}</div>
+              <div>Description: {{product.des}}</div>
+              <h4>Comments</h4>
+              <ng-container *ngFor="let comment of comment;">
+                <div *ngIf="((product._id == comment.productID)&&(comment.hidden!=true))">
+                  <!--<div *ngIf ="i<5">-->
+                    <div>------------------------------------</div>
+                    <div>User: {{comment.user}}</div>
+                    <div>{{comment.comment}}</div>
+                    <div>Rating: {{comment.rating}}</div>
+                    <div *ngFor="let user of user">
+                    <div *ngIf= "(user.manager==true)&&(user.email==(authService.user | async)?.email)">
+                      <button (click)="hideComment($event);" class={{comment._id}}>Hide</button>
+                    </div>
+                  </div>
+                <!--</div>-->
+              </div>
+                
+              </ng-container>
+              <div>----------------------------------------</div>
+              <div *ngIf="(authService.user | async) && ((authService.user | async)?.emailVerified)">
+                     <input matInput [(ngModel)]="input" placeholder="comment">
+                    
+                  <div>
+                      <mat-form-field>
+                      <mat-select [(ngModel)]="selected">
+                      <mat-option value="1"> 1 Star</mat-option>
+                      <mat-option value="2">2 Star</mat-option>
+                      <mat-option value="3">3 Star</mat-option>
+                      <mat-option value="4">4 Star</mat-option>
+                      <mat-option value="5">5 Star</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <button  class={{product._id}} (click)="checkNull(selected,input,$event);" >Save</button>
+                
+              </div>
+              <div *ngFor="let user of user">
+                <div *ngIf="((user.manager==true) && ((authService.user | async)?.email ==user.email))">
+                  <h4>Hidden Comments</h4>
+                    <ng-container *ngFor="let comment of comment">
+                      <div *ngIf="((product._id == comment.productID)&&(comment.hidden!=false))">
+                        <div>------------------------------------</div>
+                        <div>User: {{comment.user}}</div>
+                        <div>{{comment.comment}}</div>
+                        <div>Rating: {{comment.rating}}</div>
+                        <button (click)="unHideComment($event);" class={{comment._id}}>Unhide</button>
+                      </div>
+                    </ng-container>
+                  </div>
+                </div>
+          </mat-expansion-panel>
+          <br>
+  </div>
+  <br>
+  <br>
+  <br>
+  <br>
 </div>

@@ -2,22 +2,61 @@
 <div *ngIf="(authService.user | async) && ((authService.user | async)?.emailVerified)" >
     <h1 style= "text-align:center">Your Cart</h1>
     
- <button (click)="clearCart();">Clear</button>
- <button (click)="deleteCart();">Buy</button>
-    <div *ngFor="let cart of cart">
-        <ng-container *ngIf="(authService.user | async)?.email==cart.userid">
-            <mat-expansion-panel>
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  {{cart.item}}
-                </mat-panel-title>
-                <mat-panel-description>
-                    Quantity: {{cart.quantity}}
-                </mat-panel-description>
-              </mat-expansion-panel-header>
-              <div>help</div>
-            </mat-expansion-panel>
-            <br>
-        </ng-container>
+ <button (click)="clickMethodClear()">Clear</button>
+ <button (click)="clickMethoDelete();">Buy</button>
+      <div *ngIf = "showReceipt==false">
+        <div *ngFor="let cart of cart">
+            <div *ngIf="cart.bought==false">
+                <ng-container *ngIf="(authService.user | async)?.email==cart.userid">
+                    <mat-expansion-panel>
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                          {{cart.item}}
+                        </mat-panel-title>
+                        <mat-panel-description>
+                            price: $ {{cart.quantity*cart.price}}
+                        </mat-panel-description>
+                      </mat-expansion-panel-header>
+                      Quantity: {{cart.quantity}}
+                      <input type="number" id={{cart._id}} [(ngModel)]="changeAmount" min=1 max=10><button id={{cart._id}} (click)="UpdateQuantity($event,changeAmount)">Change Quantity</button>
+                      <br>
+                      <button id={{cart._id}} (click)="deleteItem($event)">Delete Item</button>
+                      
+                    </mat-expansion-panel>
+                    <br>
+                </ng-container>
+            </div>
+        </div>
     </div>
+    
+    
+   <div *ngIf = "showReceipt==true">
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Reciept
+            </mat-panel-title>
+            <mat-panel-description>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          
+          <div *ngFor="let cart of cart">
+            <div *ngIf="cart.bought==true">
+                <ng-container *ngIf="(authService.user | async)?.email==cart.userid">
+                  <h5>{{cart.item}}</h5>
+                  <br>
+                  Quantity: {{cart.quantity}}
+                  <br>
+                  price: $ {{cart.quantity*cart.price}}
+                  </ng-container>
+             </div>
+         </div>
+            Total: ${{total}}
+        </mat-expansion-panel>
+        
+    </div>
+        <br>
+  
+    
+    
 </div>

@@ -27,6 +27,8 @@ export class IndexComponent implements OnInit {
   cart;
   wishList;
   user;
+
+  
   
   constructor(private prodcutsDataBaseService: ProductsDataBaseService, 
   private commentsDataBaseService: CommentsDataBaseService,
@@ -42,11 +44,13 @@ export class IndexComponent implements OnInit {
   
   onResponseComments(res: string) {
     this.comment = res;
+    
   }
   
    onResponseCart(res: string) {
     this.cart = res;
   }
+  
   
   onResponseWish(res: string) {
     this.wishList = res;
@@ -56,6 +60,29 @@ export class IndexComponent implements OnInit {
     this.user = res;
     
   }
+  
+  checkNull(selected,input,event){
+    if(input == undefined){
+        alert("Please enter a comment");
+      }
+    else if(selected==undefined){
+      alert("Please enter a rating");
+    }
+    
+    else{
+      this.clickMethod(selected,input,event);
+    }
+    
+  }
+  
+  clickMethod(selected,input,event) {
+  if(confirm("Are you sure you want to save this comment?")) {
+    this.submit(selected,input,event);
+    location.reload();
+  }
+}
+  
+  
   
   
   checkBox(){
@@ -109,7 +136,6 @@ export class IndexComponent implements OnInit {
       this.updateEverything();
     }
     
-    //this.updateEverything();
     
     
   }
@@ -150,7 +176,7 @@ export class IndexComponent implements OnInit {
   
   submit(selected:Number, comment:String, event){
     
-    
+    this.commentsDataBaseService.getData(this.onResponseComments.bind(this));
     console.log(comment);
     console.log(selected);
     console.log(event);
@@ -169,6 +195,7 @@ export class IndexComponent implements OnInit {
     this.commentsDataBaseService.commentCreate(data).subscribe(data => {
           console.log(data);
     });
+    
     
     this.updateEverything();
     
@@ -234,64 +261,71 @@ export class IndexComponent implements OnInit {
   }
     
     //TODO: ADD A CHECK TO SHOPPING CART QUANTITY
-  add(event, amount: Number){
+  add(event, amount: Number, quantity: Number, price: Number){
     console.log(amount);
     var num = parseInt(amount,10);
     console.log(num);
     var cartCheck=false;
     var idAttr = this.getID(event);
     
-    for(var i=0; i < this.product.length; i++){
-      if(this.product[i]._id == idAttr){
-        
-        for(var j=0; j < this.cart.length; j++){
+    
+    if(quantity>=amount){
+      for(var i=0; i < this.product.length; i++){
+        if(this.product[i]._id == idAttr){
           
-          if(this.cart[j].item ==this.product[i].name){
+          for(var j=0; j < this.cart.length; j++){
             
-            cartCheck=true;
-            
-            var quanItem = (this.cart[j].quantity)+amount;
-            
-            var cartUpdateData={
-              quantity: quanItem
+            if((this.cart[j].item ==this.product[i].name)&&(this.cart[i].bought==false)){
+              
+              cartCheck=true;
+              
+              var quanItem = (this.cart[j].quantity)+amount;
+              
+              var cartUpdateData={
+                quantity: quanItem
+              }
+              
+              var cartID=this.cart[j]._id;
+              console.log(this.cart[j]._id);
+              this.cartDataBaseService.updateItem(cartID,cartUpdateData).subscribe(data => {
+              console.log(data);
+              });
+              this.updateEverything();
             }
-            
-            var cartID=this.cart[j]._id;
-            console.log(this.cart[j]._id);
-            this.cartDataBaseService.updateItem(cartID,cartUpdateData).subscribe(data => {
+          }
+          
+  
+          var quan = (this.product[i].quantity)-num;
+    
+          var data={
+            quantity: quan
+          }
+          
+          this.prodcutsDataBaseService.updateData(idAttr,data).subscribe(data => {
+            console.log(data);
+          });
+          
+          if (cartCheck==false){ 
+            var cartData={
+              userid: auth().currentUser.email,
+              item: this.product[i].name,
+              quantity: amount,
+              price: price,
+              bought: false
+            }
+            this.cartDataBaseService.createItem(cartData).subscribe(data=>{
             console.log(data);
             });
-            this.updateEverything();
           }
+          
+          this.updateEverything();
+          
         }
-        
-
-        var quan = (this.product[i].quantity)-num;
-  
-        var data={
-          quantity: quan
-        }
-        
-        this.prodcutsDataBaseService.updateData(idAttr,data).subscribe(data => {
-          console.log(data);
-        });
-        
-        if (cartCheck==false){ 
-          var cartData={
-            userid: auth().currentUser.email,
-            item: this.product[i].name,
-            quantity: amount
-          }
-          this.cartDataBaseService.createItem(cartData).subscribe(data=>{
-          console.log(data);
-          });
-        }
-        
-        this.updateEverything();
-        
       }
     }
-    //this.updateEverything();
+    else{
+      alert('Not enough of that item in stock!')
+    }
   }
   
 
@@ -349,7 +383,6 @@ export class IndexComponent implements OnInit {
      this.cartDataBaseService.getData(this.onResponseCart.bind(this));
      this.wishListService.getData(this.onResponseWish.bind(this));
      this.userDataBaseService.getData(this.onResponseUser.bind(this));
-  
   }
 
 }

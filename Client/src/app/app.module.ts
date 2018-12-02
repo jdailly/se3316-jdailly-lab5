@@ -39,6 +39,8 @@ import { FooterComponent } from './footer/footer.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import {PolicyDataBaseService} from './policy-data-base.service';
 import { DMCAComponent } from './dmca/dmca.component';
+import { DmcaNoticesComponent } from './dmca-notices/dmca-notices.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -56,6 +58,7 @@ import { DMCAComponent } from './dmca/dmca.component';
     FooterComponent,
     PrivacyPolicyComponent,
     DMCAComponent,
+    DmcaNoticesComponent,
   ],
   imports: [
     BrowserModule,

@@ -53,7 +53,7 @@ export class AuthService {
       .auth
       .signInWithEmailAndPassword(email, password)
       .then(value => {
-        console.log('Nice, it worked!');
+        alert('You successfully logged in!');
       })
       .catch(err => {
         alert("Something went wrong: "+ err.message);

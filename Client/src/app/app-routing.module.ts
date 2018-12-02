@@ -12,6 +12,7 @@ import { ManageProductsComponent } from './manage-products/manage-products.compo
 import { NewCollectionComponent } from './new-collection/new-collection.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { DMCAComponent } from './dmca/dmca.component';
+import { DmcaNoticesComponent } from './dmca-notices/dmca-notices.component';
 
 const routes: Routes = [
   {path: '', component: IndexComponent},
@@ -23,7 +24,8 @@ const routes: Routes = [
   {path: 'ManageProducts', component: ManageProductsComponent},
   {path: 'NewCollection', component: NewCollectionComponent},
   {path: 'policy', component: PrivacyPolicyComponent},
-  {path: 'dmca' , component: DMCAComponent}
+  {path: 'dmca' , component: DMCAComponent},
+  {path: 'dmcaDoc', component: DmcaNoticesComponent}
   ];
 
 @NgModule({
