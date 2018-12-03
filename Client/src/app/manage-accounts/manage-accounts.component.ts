@@ -17,6 +17,11 @@ export class ManageAccountsComponent implements OnInit {
   
   constructor(private userDataBaseService: UserDataBaseService, private authService: AuthService) { }
   
+   encodeHTML(s) {
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+}
+  
+  
   onResponseUser(res: string) {
     this.user = res;
   }

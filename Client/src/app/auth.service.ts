@@ -32,12 +32,12 @@ export class AuthService {
       .auth
       .createUserWithEmailAndPassword(email, password)
       .then(value => {
-        console.log('Success!', value);
+        return true;
         firebase.auth().currentUser.sendEmailVerification().then(function(){
        alert("check your email");
         this.NACError = false;
         }).catch(function(error){
-          
+          return false;
         });
       })
       .catch(err => {

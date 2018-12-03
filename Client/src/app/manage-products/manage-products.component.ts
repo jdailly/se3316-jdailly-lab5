@@ -19,6 +19,11 @@ export class ManageProductsComponent implements OnInit {
   constructor(private prodcutsDataBaseService: ProductsDataBaseService, private authService: AuthService,
   private userDataBaseService: UserDataBaseService) { }
   
+  encodeHTML(s) {
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+}
+  
+  
    onResponseProducts(res: string) {
     this.product = res;
   }

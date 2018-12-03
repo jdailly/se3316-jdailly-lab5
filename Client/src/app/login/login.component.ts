@@ -21,6 +21,10 @@ export class LoginComponent implements OnInit {
   
   constructor(private authService: AuthService, private userDataBaseService: UserDataBaseService) {}// public userDataBaseService: UserDataBaseService
   
+   encodeHTML(s) {
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+}
+  
   onResponse(res: string) {
     this.response = res;
   }
@@ -41,8 +45,14 @@ export class LoginComponent implements OnInit {
     
     signup(email: String, password: String) {
       
-       this.authService.signup(this.email, this.password);
-       this.sendUser(this.email);
+       var check=(this.authService.signup(this.email, this.password));
+       console.log(check);
+       
+       if(check==true){
+         
+         this.sendUser(this.email);
+         
+       }
        this.email = this.password = '';
      }
   

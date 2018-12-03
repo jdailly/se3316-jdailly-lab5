@@ -23,6 +23,11 @@ export class ShoppingCartComponent implements OnInit {
   private authService: AuthService,
   private prodcutsDataBaseService: ProductsDataBaseService) { }
 
+ encodeHTML(s) {
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+}
+
+
  onResponseCart(res: string) {
     this.cart = res;
     

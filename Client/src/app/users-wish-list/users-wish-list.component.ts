@@ -21,6 +21,10 @@ export class UsersWishListComponent implements OnInit {
   constructor(private wishListService: WishListDataBaseService, private authService: AuthService,
   private userDataBaseService: UserDataBaseService) { }
   
+  encodeHTML(s) {
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+}
+  
   onResponseWish(res: string) {
     this.wish = res;
   }

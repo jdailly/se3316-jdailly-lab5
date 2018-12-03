@@ -22,7 +22,9 @@ export class DMCAComponent implements OnInit {
   check;
 
   constructor(private privacyPolicyService: PolicyDataBaseService, private userDataBaseService: UserDataBaseService,private authService: AuthService) {}
-  
+   encodeHTML(s) {
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+}
    onResponsePolicy(res: string) {
     this.policy = res;
     

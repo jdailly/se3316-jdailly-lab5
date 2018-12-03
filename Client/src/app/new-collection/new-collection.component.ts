@@ -17,6 +17,11 @@ export class NewCollectionComponent implements OnInit {
   
   constructor(private wishListService: WishListDataBaseService, private authService: AuthService) { }
   
+   encodeHTML(s) {
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+}
+  
+  
   onResponseWish(res: string) {
     this.wishList = res;
     

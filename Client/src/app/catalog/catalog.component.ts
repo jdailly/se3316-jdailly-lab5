@@ -33,6 +33,11 @@ export class CatalogComponent implements OnInit {
   private wishListService: WishListDataBaseService,
   private userDataBaseService: UserDataBaseService) { }
   
+  
+   encodeHTML(s) {
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+}
+  
   onResponse(res: string) {
     this.product = res;
     this.sort();
