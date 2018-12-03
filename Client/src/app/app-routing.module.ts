@@ -13,6 +13,7 @@ import { NewCollectionComponent } from './new-collection/new-collection.componen
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { DMCAComponent } from './dmca/dmca.component';
 import { DmcaNoticesComponent } from './dmca-notices/dmca-notices.component';
+import { DmcaLogComponent } from './dmca-log/dmca-log.component';
 
 const routes: Routes = [
   {path: '', component: IndexComponent},
@@ -25,7 +26,8 @@ const routes: Routes = [
   {path: 'NewCollection', component: NewCollectionComponent},
   {path: 'policy', component: PrivacyPolicyComponent},
   {path: 'dmca' , component: DMCAComponent},
-  {path: 'dmcaDoc', component: DmcaNoticesComponent}
+  {path: 'dmcaDoc', component: DmcaNoticesComponent},
+  {path: 'dmcaLog', component: DmcaLogComponent}
   ];
 
 @NgModule({

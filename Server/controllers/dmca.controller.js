@@ -20,11 +20,9 @@ exports.dmca_create = function (req, res) {
     let dmca = new Dmca(
         {
             email: req.body.email,
-            manager: req.body.manager,
-            active: req.body.active,
-            access: req.body.access,
-            collName: req.body.collName,
-            collDes: req.body.collDes
+            who: req.body.who,
+            what: req.body.what,
+            where: req.body.what
         }
     );
     

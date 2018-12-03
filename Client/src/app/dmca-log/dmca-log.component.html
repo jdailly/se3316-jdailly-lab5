@@ -1,0 +1,34 @@
+<h1 style= "text-align:center">DMCA Log</h1>
+
+<h3>Add a DMCA Log</h3>
+<div>
+    <h4>Your email: </h4>
+    <input type="text" [(ngModel)]="manEmail">
+    <br>
+    <h4>Email of the person who file the complaint: </h4>
+    <input type="text" [(ngModel)]="userEmail">
+    <br>
+    <h4>What was the complaint about:</h4>
+    <input type="text" [(ngModel)]="topic">
+    <br>
+    <h4>The comment or thing being complained about:</h4>
+    <input type="text" [(ngModel)]="what">
+    <button (click)="submit(manEmail,userEmail,topic,what)"> Submit </button>
+</div>
+
+
+<div>
+    <h2>DMCA Logs</h2>
+    <div *ngFor="let dmca of dmca">
+        <h3>--------------------------------------------</h3>
+        Manager who logged DMCA: {{dmca.email}}
+        <br>
+        Email of who sent DMCA: {{dmca.who}}
+        <br>
+        What the complaint is: {{dmca.what}}
+        <br>
+        What comment or thing it the complaint about: {{dmca.where}}
+    </div>
+    <br>
+    <br>
+</div>

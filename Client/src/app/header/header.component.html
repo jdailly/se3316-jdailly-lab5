@@ -37,6 +37,11 @@
           <a class="nav-item nav-link" href="/ManageProducts">Manage Products</a>
         </a>
       </a>
+      <a *ngFor= "let user of user">
+        <a *ngIf="(authService.user | async) && ((authService.user | async)?.emailVerified)&&(user.manager==true)&&(user.email==(authService.user | async)?.email)">
+          <a class="nav-item nav-link" href="/dmcaLog">DMCA Logs</a>
+        </a>
+      </a>
     </div>
   </div>
   <div class="navbar-expand ml-auto navbar-nav">

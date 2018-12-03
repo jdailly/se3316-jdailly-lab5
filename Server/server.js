@@ -12,6 +12,7 @@ const apiComments= require('./routes/comments.route');
 const apiCart = require('./routes/cart.route');
 const apiWishList = require('./routes/wishList.route');
 const apiPolicy = require('./routes/policy.route');
+const apiDMCA = require('./routes/dmca.route');
 
 
 
@@ -41,6 +42,7 @@ app.use('/api/comments', apiComments);
 app.use('/api/cart',apiCart);
 app.use('/api/wishList',apiWishList);
 app.use('/api/policy', apiPolicy);
+app.use('/api/dmca', apiDMCA);
 
 
 

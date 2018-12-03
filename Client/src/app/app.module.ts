@@ -41,6 +41,7 @@ import {PolicyDataBaseService} from './policy-data-base.service';
 import { DMCAComponent } from './dmca/dmca.component';
 import { DmcaNoticesComponent } from './dmca-notices/dmca-notices.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import { DmcaLogComponent } from './dmca-log/dmca-log.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     PrivacyPolicyComponent,
     DMCAComponent,
     DmcaNoticesComponent,
+    DmcaLogComponent,
   ],
   imports: [
     BrowserModule,
