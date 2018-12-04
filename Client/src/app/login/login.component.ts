@@ -19,8 +19,9 @@ export class LoginComponent implements OnInit {
   password: string;
     
   
-  constructor(private authService: AuthService, private userDataBaseService: UserDataBaseService) {}// public userDataBaseService: UserDataBaseService
+  constructor(private authService: AuthService, private userDataBaseService: UserDataBaseService) {}
   
+  //encoding the html
    encodeHTML(s) {
     return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
 }
@@ -33,14 +34,15 @@ export class LoginComponent implements OnInit {
     
   }
     
+    //booloean for what can be shown
     buttonClickTrue(){
       this.ButtonPressed =true;
-      console.log("True");
+      
     }
-    
+    //setting a booloean for what can be shown
      buttonClickFalse(){
       this.ButtonPressed =false;
-      console.log("False");
+      
     }
     
     signup(email: String, password: String) {
@@ -53,34 +55,40 @@ export class LoginComponent implements OnInit {
          this.sendUser(this.email);
          
        }
-       this.email = this.password = '';
+       this.email = this.password = '';//setting the eamil back
      }
   
     login(email: String, password: String) {
-      
-      for(var i =0; this.user.length; i++){
+      console.log(email);
+      var loginCheck=false;
+      for(var i =0; i< this.user.length; i++){
         if(email==this.user[i].email){
           if(this.user[i].active==false){
             alert('Your account has been deactivated, Please contact jdailly@uwo.ca');
+            loginCheck=true;
             break;
           }
           else{
+            console.log("in the else");
             this.authService.login(this.email, this.password);
               this.email = this.password = '';
+              loginCheck=true;
               break;
           }
         }
       }
-      // this.authService.login(this.email, this.password);
-      // this.email = this.password = '';    
+      if(loginCheck==false){
+        this.authService.login(this.email, this.password);
+      }
+      this.email = this.password = ''; //clearing the email and password   
     }
   
     logout() {
-      this.authService.logout();
+      this.authService.logout();//function for logging out
     }
     
     resend(){
-      this.authService.sendEmailVerification();
+      this.authService.sendEmailVerification();//resend email verification
       
     }
     
@@ -97,13 +105,8 @@ export class LoginComponent implements OnInit {
     }
     
     
-    onClick(){
-      this.userDataBaseService.getData(this.onResponse.bind(this));
-      console.log(this.response);
-    }
-    
     sendUser(email: String){
-     console.log(email);
+     var email2 = this.encodeHTML(email);
       var data={
         email: email,
         manager:false,
@@ -118,7 +121,7 @@ export class LoginComponent implements OnInit {
 
 
 
-  ngOnInit() {
+  ngOnInit() {//binding the user data to the variabel user
      this.userDataBaseService.getData(this.onResponseUser.bind(this));
   }
 

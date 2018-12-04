@@ -20,9 +20,10 @@ policy;
   user;
   check;
    constructor(private privacyPolicyService: PolicyDataBaseService, private userDataBaseService: UserDataBaseService,private authService: AuthService) {}
+   //function to encode the data
    encodeHTML(s) {
     return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
-}
+  }
    onResponsePolicy(res: string) {
     this.policy = res;
     
@@ -43,11 +44,10 @@ policy;
   
   policyChange(event,descript){
     
-    var elementID = this.getID(event);
-    console.log(elementID);
-    
+    var elementID = this.getID(event);//getting the ID of the item so it can be updated
+    var descript2 = this.encodeHTML(descript);
     var data={
-      descript:descript
+      descript:descript2
     }
     
     this.privacyPolicyService.updatePolicy(elementID,data).subscribe(data => {
@@ -56,7 +56,7 @@ policy;
     
   }
   
-  setCheck(){
+  setCheck(){//setting the check to display the right doc
     this.check="dmcaDoc";
   }
   

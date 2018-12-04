@@ -17,23 +17,23 @@ export class AllWishListComponent implements OnInit {
   constructor(private wishListService: WishListDataBaseService, private authService: AuthService,
   private userDataBaseService: UserDataBaseService) { }
   
+  
+  //loading the wishList from the data base and assinging to the wish
   onResponseWish(res: string) {
     this.wish = res;
   }
+  
+  //loading the wishList from the data base and assinging to the wish
   onResponseUser(res: string) {
     this.user = res;
   }
   
-  help(){
-  
-  console.log("help");
-  console.log(this.user[0].email);
-  console.log(this.wish[0].email);
-  }
-
+ 
+  //called at the beggenning of the program and gets the data from the data bases
   ngOnInit() {
     this.wishListService.getData(this.onResponseWish.bind(this));
     this.userDataBaseService.getData(this.onResponseUser.bind(this));
   }
-
 }
+
+

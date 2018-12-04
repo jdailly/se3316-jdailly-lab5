@@ -23,7 +23,7 @@ export class ShoppingCartComponent implements OnInit {
   private authService: AuthService,
   private prodcutsDataBaseService: ProductsDataBaseService) { }
 
- encodeHTML(s) {
+ encodeHTML(s) {//encoding the inputs
     return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
 }
 
@@ -40,6 +40,7 @@ export class ShoppingCartComponent implements OnInit {
   initialReceipt(){
     this.showReceipt=false;
   }
+  
   setReceipt(){
     console.log(this.showReceipt)
     this.showReceipt=true;
@@ -47,9 +48,7 @@ export class ShoppingCartComponent implements OnInit {
   }
   
   addTotal(itemTotal){
-    console.log("adding");
     this.addTotal=this.addTotal+itemTotal;
-    
   }
   
   initailTotal(){
@@ -61,9 +60,7 @@ export class ShoppingCartComponent implements OnInit {
           this.total=(this.cart[i].price*this.cart[i].quantity)+this.total;
         }
       }
-      
     }
-    
   }
   
   
@@ -72,20 +69,20 @@ export class ShoppingCartComponent implements OnInit {
   clickMethodClear() {
   if(confirm("Are you sure to clear Cart?")) {
     this.clearCart();
+    }
   }
-}
 
-clickMethoDelete() {
-  if(confirm("Are you sure to Buy?")) {
-    this.addPurchased();
-    this.deleteCart();
-    this.boughtCart();
-    this.cartDataBaseService.getData(this.onResponseCart.bind(this));
-    this.initailTotal();
-    this.setReceipt();
-    this.cartDataBaseService.getData(this.onResponseCart.bind(this));
+  clickMethoDelete() {
+    if(confirm("Are you sure to Buy?")) {
+      this.addPurchased();
+      this.deleteCart();
+      this.boughtCart();
+      this.cartDataBaseService.getData(this.onResponseCart.bind(this));
+      this.initailTotal();
+      this.setReceipt();
+      this.cartDataBaseService.getData(this.onResponseCart.bind(this));
+    }
   }
-}
 
   
   UpdateQuantity(event,changeAmount){
@@ -149,7 +146,6 @@ clickMethoDelete() {
     var target = event.target || event.srcElement || event.currentTarget;
     var idAttr = target.attributes.id.value;
     return idAttr;
-    
   }
   
  clearCart(){
@@ -159,17 +155,14 @@ clickMethoDelete() {
       for(var j=0;j<this.products.length; j++){
         if(this.products[j].name == this.cart[i].item){
           var addedQuan = this.products[j].quantity+this.cart[i].quantity;
-          
           var data={
             quantity: addedQuan
           }
-          
           var productid= this.products[j]._id;
           this.prodcutsDataBaseService.updateData(productid,data).subscribe(data => {
           console.log(data);
         });
       }
-      
       //delete all the items of that user in the cart
       var cartId= this.cart[i]._id;
       this.cartDataBaseService.deleteItem(cartId).subscribe(data=>{
@@ -177,13 +170,9 @@ clickMethoDelete() {
       });
       this.cartDataBaseService.getData(this.onResponseCart.bind(this));
     }
-      
     } 
-    
    }
-   
    this.updateCart();
-   
  }
  
  updateCart(){
@@ -202,19 +191,16 @@ clickMethoDelete() {
  }
  
  
- boughtCart(){
-   this.cartDataBaseService.getData(this.onResponseCart.bind(this));
+ boughtCart(){//called when the user buys th
+   this.cartDataBaseService.getData(this.onResponseCart.bind(this));//updating the cart variable
    for( var i = 0; i < this.cart.length; i++ ){
     if ((auth().currentUser.email)==this.cart[i].userid){
        var cartId= this.cart[i]._id;
-       
-       var data={
-         
+       var data={//setting the bought variable to true
          bought: true
-         
        }
        console.log("in the cart");
-      this.cartDataBaseService.updateItem(cartId, data).subscribe(data=>{
+      this.cartDataBaseService.updateItem(cartId, data).subscribe(data=>{//updating the items
         console.log(data); 
       });
     }

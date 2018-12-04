@@ -24,10 +24,10 @@ export class PrivacyPolicyComponent implements OnInit {
 
   constructor(private privacyPolicyService: PolicyDataBaseService, private userDataBaseService: UserDataBaseService,private authService: AuthService) {}
   
+  //encoding the imput
   encodeHTML(s) {
     return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
-}
-  
+  }
   
    onResponsePolicy(res: string) {
     this.policy = res;
@@ -39,7 +39,7 @@ export class PrivacyPolicyComponent implements OnInit {
     this.setCheck();
   }
   
-  getID(event)
+  getID(event)//=function to get the ID
   {
     var target = event.target || event.srcElement || event.currentTarget;
     var idAttr = target.attributes.id.value;
@@ -48,18 +48,15 @@ export class PrivacyPolicyComponent implements OnInit {
   }
   
   policyChange(event,descript){
-    
     var elementID = this.getID(event);
-    console.log(elementID);
-    
+    var descript2 = this.encodeHTML(descript);
     var data={
-      descript:descript
+      descript:descript2
     }
     
     this.privacyPolicyService.updatePolicy(elementID,data).subscribe(data => {
           console.log(data);
         });
-    
   }
   
   
@@ -69,11 +66,8 @@ export class PrivacyPolicyComponent implements OnInit {
   
 
   ngOnInit() {
-    
     this.privacyPolicyService.getData(this.onResponsePolicy.bind(this));
     this.userDataBaseService.getData(this.onResponseUser.bind(this));
-
-  
     
   }
 }

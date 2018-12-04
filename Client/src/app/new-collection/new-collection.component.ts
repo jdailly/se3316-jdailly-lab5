@@ -17,6 +17,8 @@ export class NewCollectionComponent implements OnInit {
   
   constructor(private wishListService: WishListDataBaseService, private authService: AuthService) { }
   
+  
+  //encoding the inputs
    encodeHTML(s) {
     return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
 }
@@ -40,7 +42,7 @@ export class NewCollectionComponent implements OnInit {
     
     console.log(access);
     
-    var userCollection = {
+    var userCollection = {//setting the first shema 
         
         item:"Test",
         quantity: 0,
@@ -48,7 +50,7 @@ export class NewCollectionComponent implements OnInit {
         
       }
   
-      var wishData ={
+      var wishData ={//setting the values for shema
         
         name: name,
         email: email,
@@ -58,20 +60,14 @@ export class NewCollectionComponent implements OnInit {
         
       }
       
-      console.log(wishData);
-      
       this.wishListService.addWish(wishData).subscribe(data =>{
         console.log(data);
       });
-      
-      
   }
   
 
   ngOnInit() {
-    
     this.wishListService.getData(this.onResponseWish.bind(this));
-    
   }
 
 }

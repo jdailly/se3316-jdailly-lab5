@@ -56,6 +56,7 @@ export class AuthService {
         alert('You successfully logged in!');
       })
       .catch(err => {
+        console.log("What");
         alert("Something went wrong: "+ err.message);
       });
   }

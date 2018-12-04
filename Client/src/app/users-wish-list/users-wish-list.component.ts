@@ -49,18 +49,7 @@ export class UsersWishListComponent implements OnInit {
             console.log(data);
     });
   }
-  
-  // Changequan(event,quan){
-  //   var idWish = this.getID(event);
-     
-  //   var data={
-  //     quantity:quan
-  //   }
-    
-  //   this.wishListService.updateWish(idWish,data).subscribe(data => {
-  //           console.log(data);
-  //           });
-  // }
+
   
   editDes(event,des){
     var idWish = this.getID(event);

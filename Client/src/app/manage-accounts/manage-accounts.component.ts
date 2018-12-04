@@ -17,7 +17,7 @@ export class ManageAccountsComponent implements OnInit {
   
   constructor(private userDataBaseService: UserDataBaseService, private authService: AuthService) { }
   
-   encodeHTML(s) {
+   encodeHTML(s) {//encoding the passed values 
     return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
 }
   
@@ -27,16 +27,13 @@ export class ManageAccountsComponent implements OnInit {
   }
   
   storeManagerOff(event){
-    var elementID = this.getID(event)
-    console.log(elementID);
+    var elementID = this.getID(event)// getting the ID
     var data ={
       manager: false
     }
-    
-    this.userDataBaseService.updateAccess(elementID,data).subscribe(data => {
+    this.userDataBaseService.updateAccess(elementID,data).subscribe(data => {//sending the update to update
           console.log(data);
             });
-    
   }
   
   disableAccount(event){
@@ -47,12 +44,12 @@ export class ManageAccountsComponent implements OnInit {
     }
     
     this.userDataBaseService.updateAccess(elementID,data).subscribe(data => {
-          console.log(data);
-            });
+      console.log(data);
+    });
     
   }
   
-  storeManagerOn(event){
+  storeManagerOn(event){//changing the store manager to true
     var elementID = this.getID(event);
     var data={
       
@@ -65,7 +62,7 @@ export class ManageAccountsComponent implements OnInit {
     
   }
   
-  activateaAccount(event){
+  activateaAccount(event){//activating an account
     var elementID = this.getID(event);
     console.log(elementID);
     
@@ -73,15 +70,15 @@ export class ManageAccountsComponent implements OnInit {
       active: true
     }
     
-    this.userDataBaseService.updateAccess(elementID,data).subscribe(data => {
+    this.userDataBaseService.updateAccess(elementID,data).subscribe(data => {//updating the access of the active 
           console.log(data);
-            });
+      });
             
             
     
   }
   
-  getID(event)
+  getID(event)//the function to get the ID
   {
     var target = event.target || event.srcElement || event.currentTarget;
     var idAttr = target.attributes.class.value;
@@ -89,7 +86,8 @@ export class ManageAccountsComponent implements OnInit {
     
   }
   
-
+  
+  //updating all the data bases and assgin to the variable
   ngOnInit() {
     this.userDataBaseService.getData(this.onResponseUser.bind(this));
   }
